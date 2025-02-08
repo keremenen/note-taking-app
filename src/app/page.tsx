@@ -12,7 +12,7 @@ export default function Home() {
 				<Logo className="mb-4" />
 
 				<h1 className="font-bold text-2xl mb-2">Welcome to Note</h1>
-				<p className="text-[#525866] text-sm mb-2 text-center mb-6">
+				<p className="text-[#525866] text-sm text-center mb-6">
 					Please log in to continue
 				</p>
 
