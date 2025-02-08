@@ -49,6 +49,24 @@ const notes = [
 		tags: ['Fitness', 'Health', 'Personal'],
 		createdAt: '22 Sep 2024',
 	},
+	{
+		id: 5,
+		title: 'Meal Prep Ideas',
+		tags: ['Cooking', 'Health', 'Recipes'],
+		createdAt: '29 Oct 2024',
+	},
+	{
+		id: 6,
+		title: 'Reading List',
+		tags: ['Personal', 'Dev'],
+		createdAt: '05 Oct 2024',
+	},
+	{
+		id: 7,
+		title: 'Fitness Goals 2025',
+		tags: ['Fitness', 'Health', 'Personal'],
+		createdAt: '22 Sep 2024',
+	},
 ]
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -57,8 +75,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 			<SidebarProvider>
 				<AppSidebar />
 				{/* <SidebarTrigger /> */}
-				<main className="w-full min-h-screen flex flex-col">
-					<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center">
+				<main className="w-full max-h-screen min-h-screen flex flex-col">
+					<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
 						<h1 className="font-bold text-2xl ">All notes</h1>
 						<div className="ml-auto flex items-center gap-4">
 							<Input
@@ -68,8 +86,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 							<Settings className="ml-auto" />
 						</div>
 					</header>
-					<section className="flex flex-1 flex-row">
-						<section className="basis-72 h-auto border-[#E0E4EA] border-r p-5 bg-white">
+					<section className="flex flex-row flex-1 overflow-auto">
+						{/* NOTES LIST */}
+						<section className="basis-72  border-[#E0E4EA] border-r px-5 py-7 bg-white overflow-auto  ">
 							<Button className="w-full mb-4">Create new note</Button>
 							<section>
 								<ul className="space-y-2">
@@ -98,6 +117,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 									))}
 								</ul>
 							</section>
+						</section>
+
+						{/* NOTE DETAILS */}
+						<section className="flex-1">ss</section>
+
+						{/* NOTE OPTIONS */}
+						<section className="basis-72 bg-white px-5 py-7 space-y-4">
+							<Button variant={'outline'} className="w-full">
+								Archive Note
+							</Button>
+							<Button variant={'outline'} className="w-full">
+								Delete Note
+							</Button>
 						</section>
 						{children}
 					</section>
