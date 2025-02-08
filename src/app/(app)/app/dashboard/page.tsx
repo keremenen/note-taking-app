@@ -87,8 +87,10 @@ export default function DashboardPage() {
 			</header>
 			<section className="flex flex-row flex-1 overflow-auto">
 				{/* NOTES LIST */}
-				<section className="basis-72  border-[#E0E4EA] border-r px-5 py-7 bg-white overflow-auto  ">
-					<Button className="w-full mb-4">Create new note</Button>
+				<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
+					<div className="mb-4 sticky top-0 bg-white pt-7">
+						<Button className="w-full mb-4 ">Create new note</Button>
+					</div>
 					<section>
 						<ul className="space-y-2">
 							{notes.map((note) => (
