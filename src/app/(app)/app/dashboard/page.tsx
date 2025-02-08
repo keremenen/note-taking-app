@@ -35,16 +35,16 @@ const notes = [
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 6,
-		title: 'Reading List',
-		tags: ['Personal', 'Dev'],
-		createdAt: '05 Oct 2024',
+		id: 3,
+		title: 'Favorite Pasta Recipes',
+		tags: ['Cooking', 'Recipes'],
+		createdAt: '27 Oct 2024',
 	},
 	{
-		id: 7,
-		title: 'Fitness Goals 2025',
-		tags: ['Fitness', 'Health', 'Personal'],
-		createdAt: '22 Sep 2024',
+		id: 4,
+		title: 'Weekly Workout Plan',
+		tags: ['Dev', 'React'],
+		createdAt: '29 Oct 2024',
 	},
 	{
 		id: 5,
@@ -53,22 +53,28 @@ const notes = [
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 6,
-		title: 'Reading List',
-		tags: ['Personal', 'Dev'],
-		createdAt: '05 Oct 2024',
+		id: 3,
+		title: 'Favorite Pasta Recipes',
+		tags: ['Cooking', 'Recipes'],
+		createdAt: '27 Oct 2024',
 	},
 	{
-		id: 7,
-		title: 'Fitness Goals 2025',
-		tags: ['Fitness', 'Health', 'Personal'],
-		createdAt: '22 Sep 2024',
+		id: 4,
+		title: 'Weekly Workout Plan',
+		tags: ['Dev', 'React'],
+		createdAt: '29 Oct 2024',
+	},
+	{
+		id: 5,
+		title: 'Meal Prep Ideas',
+		tags: ['Cooking', 'Health', 'Recipes'],
+		createdAt: '29 Oct 2024',
 	},
 ]
 
 export default function DashboardPage() {
 	return (
-		<main>
+		<main className="min-h-screen flex flex-col max-h-screen w-full">
 			<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
 				<h1 className="font-bold text-2xl ">All notes</h1>
 				<div className="ml-auto flex items-center gap-4">
