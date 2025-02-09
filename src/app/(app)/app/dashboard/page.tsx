@@ -121,7 +121,7 @@ export default function DashboardPage() {
 				</section>
 
 				{/* NOTE DETAILS */}
-				<section className="flex-1">ss</section>
+				<section className="flex-1">data here</section>
 
 				{/* NOTE OPTIONS */}
 				<section className="basis-72 bg-white px-5 py-7 space-y-4">
