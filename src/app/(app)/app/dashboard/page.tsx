@@ -96,7 +96,7 @@ export default function DashboardPage() {
 							{notes.map((note) => (
 								<>
 									<li
-										key={note.id}
+										key={Math.random()}
 										className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0"
 									>
 										<h3 className="font-semibold mb-3">{note.title}</h3>
