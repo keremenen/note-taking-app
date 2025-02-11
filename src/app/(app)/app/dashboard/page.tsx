@@ -94,11 +94,8 @@ export default function DashboardPage() {
 					<section>
 						<ul className="space-y-2">
 							{notes.map((note) => (
-								<>
-									<li
-										key={Math.random()}
-										className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0"
-									>
+								<div key={Math.random()}>
+									<li className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0">
 										<h3 className="font-semibold mb-3">{note.title}</h3>
 										<div className="space-x-2 mb-3">
 											{note.tags.map((tag) => (
@@ -114,7 +111,7 @@ export default function DashboardPage() {
 										<p className="text-[12px]">{note.createdAt}</p>
 									</li>
 									<Separator className="!m-1 " />
-								</>
+								</div>
 							))}
 						</ul>
 					</section>
