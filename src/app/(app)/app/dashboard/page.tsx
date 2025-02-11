@@ -119,7 +119,7 @@ export default function DashboardPage() {
 				</section>
 
 				{/* NOTE DETAILS */}
-				<section className="flex-1 px-6 py-5">
+				<section className="flex-1 px-6 py-5 flex flex-col">
 					<h2 className="text-2xl font-bold">React Performance Optimization</h2>
 					<section className="text-sm space-y-1 mt-4">
 						<div className="flex items-center">
@@ -138,10 +138,10 @@ export default function DashboardPage() {
 						</div>
 					</section>
 					<Separator className="my-4" />
-					<Textarea className="" />
+					<Textarea className="flex-1" />
 					<Separator className="my-4" />
 
-					<div className="flex gap-x-2">
+					<div className="flex gap-x-2 mt-auto">
 						<Button>Save note</Button>
 						<Button variant={'outline'}>Cancel</Button>
 					</div>
