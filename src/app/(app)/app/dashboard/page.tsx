@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textarea'
 import { Clock, Settings, Tag } from 'lucide-react'
 
 const notes = [
@@ -137,6 +138,13 @@ export default function DashboardPage() {
 						</div>
 					</section>
 					<Separator className="my-4" />
+					<Textarea className="" />
+					<Separator className="my-4" />
+
+					<div className="flex gap-x-2">
+						<Button>Save note</Button>
+						<Button variant={'outline'}>Cancel</Button>
+					</div>
 				</section>
 
 				{/* NOTE OPTIONS */}
