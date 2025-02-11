@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { Clock, Settings, Tag } from 'lucide-react'
+import { Archive, Clock, Settings, Tag, Trash } from 'lucide-react'
 
 const notes = [
 	{
@@ -148,11 +148,13 @@ export default function DashboardPage() {
 				</section>
 
 				{/* NOTE OPTIONS */}
-				<section className="basis-72 bg-white px-5 py-7 space-y-4">
+				<section className="basis-72 bg-white px-5 py-7 space-y-4 border-[#E0E4EA] border-l">
 					<Button variant={'outline'} className="w-full">
+						<Archive size={16} />
 						Archive Note
 					</Button>
 					<Button variant={'outline'} className="w-full">
+						<Trash size={16} />
 						Delete Note
 					</Button>
 				</section>
