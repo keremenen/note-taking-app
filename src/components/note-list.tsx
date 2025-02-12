@@ -71,7 +71,7 @@ const notes = [
 	},
 ]
 
-export default function NoteList() {
+export default function NotesList() {
 	return (
 		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
 			<div className="mb-4 sticky top-0 bg-white pt-7">

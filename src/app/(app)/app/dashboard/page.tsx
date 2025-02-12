@@ -1,5 +1,5 @@
 import NoteDetails from '@/components/note-details'
-import NoteList from '@/components/note-list'
+import NotesList from '@/components/note-list'
 import NoteOptions from '@/components/note-options'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -23,7 +23,7 @@ export default function DashboardPage() {
 			<section className="flex flex-row flex-1 overflow-auto">
 				{/* NOTES LIST */}
 
-				<NoteList />
+				<NotesList />
 				{/* NOTE DETAILS */}
 				<NoteDetails />
 				{/* NOTE OPTIONS */}
