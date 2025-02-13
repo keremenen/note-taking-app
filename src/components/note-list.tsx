@@ -2,10 +2,10 @@
 
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
-import { Separator } from './ui/separator'
+// import { Separator } from './ui/separator'
 
 export default function NotesList() {
-	const { notes } = useNoteContext()
+	const { notes, handleSetSelectedNoteId } = useNoteContext()
 
 	return (
 		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
@@ -15,8 +15,11 @@ export default function NotesList() {
 			<section>
 				<ul className="space-y-2">
 					{notes.map((note) => (
-						<div key={Math.random()}>
-							<li className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0">
+						<li
+							className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0"
+							key={Math.random()}
+						>
+							<button onClick={() => handleSetSelectedNoteId(note.id)}>
 								<h3 className="font-semibold mb-3">{note.title}</h3>
 								<div className="space-x-2 mb-3">
 									{note.tags.map((tag) => (
@@ -30,9 +33,8 @@ export default function NotesList() {
 								</div>
 
 								<p className="text-[12px]">{note.createdAt}</p>
-							</li>
-							<Separator className="!m-1 " />
-						</div>
+							</button>
+						</li>
 					))}
 				</ul>
 			</section>

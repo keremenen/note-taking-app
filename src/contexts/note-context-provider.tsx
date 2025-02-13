@@ -34,37 +34,37 @@ const data = [
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 3,
+		id: 6,
 		title: 'Favorite Pasta Recipes',
 		tags: ['Cooking', 'Recipes'],
 		createdAt: '27 Oct 2024',
 	},
 	{
-		id: 4,
+		id: 7,
 		title: 'Weekly Workout Plan',
 		tags: ['Dev', 'React'],
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 5,
+		id: 8,
 		title: 'Meal Prep Ideas',
 		tags: ['Cooking', 'Health', 'Recipes'],
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 3,
+		id: 9,
 		title: 'Favorite Pasta Recipes',
 		tags: ['Cooking', 'Recipes'],
 		createdAt: '27 Oct 2024',
 	},
 	{
-		id: 4,
+		id: 10,
 		title: 'Weekly Workout Plan',
 		tags: ['Dev', 'React'],
 		createdAt: '29 Oct 2024',
 	},
 	{
-		id: 5,
+		id: 11,
 		title: 'Meal Prep Ideas',
 		tags: ['Cooking', 'Health', 'Recipes'],
 		createdAt: '29 Oct 2024',
@@ -81,9 +81,9 @@ type Note = {
 
 type TNoteContext = {
 	notes: Note[]
-	selectedNoteId: string | null
+	selectedNoteId: number | null
 	handleAddNote: (newNote: Note) => void
-	handleSetSelectedNoteId: (id: string) => void
+	handleSetSelectedNoteId: (id: number) => void
 }
 
 type NoteContextProviderProps = {
@@ -95,7 +95,10 @@ export default function NoteContextProvider({
 }: NoteContextProviderProps) {
 	// State
 	const [notes, setNotes] = useState(data)
-	const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null)
+	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null)
+
+	// Derived state
+	const selectedNote = notes.find((note) => note.id === selectedNoteId)
 
 	// Handlers
 	const handleAddNote = (newNote: Note) => {
@@ -104,9 +107,11 @@ export default function NoteContextProvider({
 		})
 	}
 
-	const handleSetSelectedNoteId = (id: string) => {
+	const handleSetSelectedNoteId = (id: number) => {
 		setSelectedNoteId(id)
 	}
+
+	console.log(selectedNoteId)
 
 	return (
 		<NoteContext.Provider
