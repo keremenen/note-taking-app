@@ -83,6 +83,8 @@ type TNoteContext = {
 	notes: Note[]
 	selectedNoteId: number | null
 	selectedNote: Note | undefined
+	addNoteMode: boolean
+	handleActiveAddNoteMode: () => void
 	handleAddNote: (newNote: Note) => void
 	handleSetSelectedNoteId: (id: number) => void
 }
@@ -97,6 +99,7 @@ export default function NoteContextProvider({
 	// State
 	const [notes, setNotes] = useState(data)
 	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
+	const [addNoteMode, setAddNoteMode] = useState(false)
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
@@ -112,6 +115,11 @@ export default function NoteContextProvider({
 		setSelectedNoteId(id)
 	}
 
+	const handleActiveAddNoteMode = () => {
+		setSelectedNoteId(null)
+		setAddNoteMode(true)
+	}
+
 	console.log(selectedNoteId)
 
 	return (
@@ -120,6 +128,8 @@ export default function NoteContextProvider({
 				notes,
 				selectedNoteId,
 				selectedNote,
+				addNoteMode,
+				handleActiveAddNoteMode,
 				handleAddNote,
 				handleSetSelectedNoteId,
 			}}

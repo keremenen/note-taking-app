@@ -5,12 +5,15 @@ import { Button } from './ui/button'
 // import { Separator } from './ui/separator'
 
 export default function NotesList() {
-	const { notes, handleSetSelectedNoteId } = useNoteContext()
+	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
+		useNoteContext()
 
 	return (
 		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
 			<div className="mb-4 sticky top-0 bg-white pt-7">
-				<Button className="w-full mb-4 ">Create new note</Button>
+				<Button className="w-full mb-4 " onClick={handleActiveAddNoteMode}>
+					Create new note
+				</Button>
 			</div>
 			<section>
 				<ul className="space-y-2">
