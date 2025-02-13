@@ -16,10 +16,13 @@ export default function NotesList() {
 				<ul className="space-y-2">
 					{notes.map((note) => (
 						<li
-							className="p-2 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer !m-0"
+							className="px-2 py-1 hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer"
 							key={Math.random()}
 						>
-							<button onClick={() => handleSetSelectedNoteId(note.id)}>
+							<button
+								onClick={() => handleSetSelectedNoteId(note.id)}
+								className="text-left"
+							>
 								<h3 className="font-semibold mb-3">{note.title}</h3>
 								<div className="space-x-2 mb-3">
 									{note.tags.map((tag) => (
