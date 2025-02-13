@@ -11,12 +11,12 @@ export default function NoteDetails() {
 
 	return (
 		<section className="flex-1 px-6 py-5 flex flex-col">
-			{!selectedNote ? (
-				<p>no data</p>
+			{!addNoteMode ? (
+				<EmptyNoteView />
 			) : (
 				<>
-					<NoteDetailsTitle note={selectedNote} />
-					<NoteDetailsInfo note={selectedNote} />
+					<NoteDetailsTitle note={selectedNote!} />
+					<NoteDetailsInfo note={selectedNote!} />
 					<Separator className="my-4" />
 					<Textarea className="flex-1" />
 					<Separator className="my-4" />
@@ -36,6 +36,10 @@ type Note = {
 
 type Props = {
 	note: Note
+}
+
+function EmptyNoteView() {
+	return <p>no data</p>
 }
 
 function NoteDetailsTitle({ note }: Props) {
