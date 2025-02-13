@@ -82,6 +82,7 @@ type Note = {
 type TNoteContext = {
 	notes: Note[]
 	selectedNoteId: number | null
+	selectedNote: Note | undefined
 	handleAddNote: (newNote: Note) => void
 	handleSetSelectedNoteId: (id: number) => void
 }
@@ -95,7 +96,7 @@ export default function NoteContextProvider({
 }: NoteContextProviderProps) {
 	// State
 	const [notes, setNotes] = useState(data)
-	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null)
+	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
@@ -115,7 +116,13 @@ export default function NoteContextProvider({
 
 	return (
 		<NoteContext.Provider
-			value={{ notes, selectedNoteId, handleAddNote, handleSetSelectedNoteId }}
+			value={{
+				notes,
+				selectedNoteId,
+				selectedNote,
+				handleAddNote,
+				handleSetSelectedNoteId,
+			}}
 		>
 			{children}
 		</NoteContext.Provider>
