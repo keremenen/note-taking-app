@@ -1,77 +1,12 @@
-import React from 'react'
+'use client'
+
+import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 
-const notes = [
-	{
-		id: 1,
-		title: 'React Performance Optimization',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 2,
-		title: 'Japan Travel Planning',
-		tags: ['Travel', 'Personal'],
-		createdAt: '28 Oct 2024',
-	},
-	{
-		id: 3,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 4,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 5,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 3,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 4,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 5,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 3,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 4,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 5,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-]
-
 export default function NotesList() {
+	const { notes } = useNoteContext()
+
 	return (
 		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
 			<div className="mb-4 sticky top-0 bg-white pt-7">

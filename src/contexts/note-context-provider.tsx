@@ -2,8 +2,6 @@
 
 import { createContext, useState } from 'react'
 
-const NoteContext = createContext<TNoteContext | null>(null)
-
 const data = [
 	{
 		id: 1,
@@ -72,6 +70,7 @@ const data = [
 		createdAt: '29 Oct 2024',
 	},
 ]
+export const NoteContext = createContext<TNoteContext | null>(null)
 
 type Note = {
 	id: number
@@ -91,7 +90,7 @@ type NoteContextProviderProps = {
 	children: React.ReactNode
 }
 
-export default function NoteCotnextProvider({
+export default function NoteContextProvider({
 	children,
 }: NoteContextProviderProps) {
 	// State

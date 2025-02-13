@@ -1,7 +1,9 @@
+'use client'
 import DashboardHeader from '@/components/dashboard-header'
 import NoteDetails from '@/components/note-details'
 import NotesList from '@/components/note-list'
 import NoteOptions from '@/components/note-options'
+import { useNoteContext } from '@/lib/hooks'
 
 export default function DashboardPage() {
 	return (

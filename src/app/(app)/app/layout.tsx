@@ -1,15 +1,18 @@
 import { AppSidebar } from '@/components/app-sidebar'
 
 import { SidebarProvider } from '@/components/ui/sidebar'
+import NoteContextProvider from '@/contexts/note-context-provider'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
-			<SidebarProvider>
-				<AppSidebar />
-				{/* TODO: SIDEBAR TRIGGER */}
-				{children}
-			</SidebarProvider>
+			<NoteContextProvider>
+				<SidebarProvider>
+					<AppSidebar />
+					{/* TODO: SIDEBAR TRIGGER */}
+					{children}
+				</SidebarProvider>
+			</NoteContextProvider>
 		</>
 	)
 }
