@@ -5,17 +5,18 @@ import { Separator } from './ui/separator'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { useNoteContext } from '@/lib/hooks'
+import { Input } from './ui/input'
 
 export default function NoteDetails() {
 	const { selectedNote, addNoteMode } = useNoteContext()
 
 	return (
 		<section className="flex-1 px-6 py-5 flex flex-col">
-			{!addNoteMode ? (
+			{addNoteMode ? (
 				<EmptyNoteView />
 			) : (
 				<>
-					<NoteDetailsTitle note={selectedNote!} />
+					<NoteDetailsTitle title={selectedNote!.title} />
 					<NoteDetailsInfo note={selectedNote!} />
 					<Separator className="my-4" />
 					<Textarea className="flex-1" />
@@ -39,11 +40,15 @@ type Props = {
 }
 
 function EmptyNoteView() {
-	return <p>no data</p>
+	return (
+		<>
+			<NoteDetailsTitle title="Enter a title" />
+		</>
+	)
 }
 
-function NoteDetailsTitle({ note }: Props) {
-	return <h2 className="text-2xl font-bold">{note.title}</h2>
+function NoteDetailsTitle({ title }: { title: string }) {
+	return <Input className="text-2xl font-bold" defaultValue={title} />
 }
 
 function NoteDetailsInfo({ note }: Props) {

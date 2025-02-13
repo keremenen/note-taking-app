@@ -113,6 +113,7 @@ export default function NoteContextProvider({
 
 	const handleSetSelectedNoteId = (id: number) => {
 		setSelectedNoteId(id)
+		setAddNoteMode(false)
 	}
 
 	const handleActiveAddNoteMode = () => {
