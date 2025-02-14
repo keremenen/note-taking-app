@@ -9,7 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 			<NoteContextProvider>
 				<SidebarProvider>
 					<AppSidebar />
-					{/* TODO: SIDEBAR TRIGGER */}
+
 					{children}
 				</SidebarProvider>
 			</NoteContextProvider>

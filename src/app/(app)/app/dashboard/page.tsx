@@ -8,12 +8,8 @@ export default function DashboardPage() {
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
 			<DashboardHeader title={'All notes'} />
 			<section className="flex flex-row flex-1 overflow-auto">
-				{/* NOTES LIST */}
-
 				<NotesList />
-				{/* NOTE DETAILS */}
 				<NoteDetails />
-				{/* NOTE OPTIONS */}
 				<NoteOptions />
 			</section>
 		</main>
