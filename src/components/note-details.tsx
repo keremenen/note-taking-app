@@ -60,8 +60,8 @@ function NoteDetailsInfo({ note }: Props) {
 				</span>
 
 				<input
-					defaultValue={note?.tags}
 					onChange={() => {}}
+					value={note.tags}
 					className="w-full bg-inherit p-1 focus:ring-2 hover:ring-2 rounded-sm transition duration-300"
 				/>
 			</div>
@@ -70,7 +70,13 @@ function NoteDetailsInfo({ note }: Props) {
 					<Clock size={16} />
 					Last edited
 				</span>
-				{/* <span>{note?.createdAt}</span> */}
+				<span className="p-1">
+					{new Date(note.createdAt).toLocaleDateString('en-GB', {
+						day: 'numeric',
+						month: 'short',
+						year: 'numeric',
+					})}
+				</span>
 			</div>
 		</section>
 	)
