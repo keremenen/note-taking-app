@@ -5,7 +5,7 @@ import { Separator } from './ui/separator'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { useNoteContext } from '@/lib/hooks'
-import { Input } from './ui/input'
+import { Note } from '@prisma/client'
 
 export default function NoteDetails() {
 	const { selectedNote, addNoteMode } = useNoteContext()
@@ -26,13 +26,6 @@ export default function NoteDetails() {
 			)}
 		</section>
 	)
-}
-
-type Note = {
-	id: number
-	title: string
-	tags: string[]
-	createdAt: string
 }
 
 type Props = {
@@ -66,7 +59,11 @@ function NoteDetailsInfo({ note }: Props) {
 					Tags
 				</span>
 
-				<span>{note?.tags}</span>
+				<input
+					defaultValue={note?.tags}
+					onChange={() => {}}
+					className="w-full bg-inherit p-1 focus:ring-2 hover:ring-2 rounded-sm transition duration-300"
+				/>
 			</div>
 			<div className="flex items-center">
 				<span className="flex min-w-28 h-7 items-center gap-x-2">
