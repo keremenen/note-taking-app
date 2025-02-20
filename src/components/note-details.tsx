@@ -48,7 +48,13 @@ function EmptyNoteView() {
 }
 
 function NoteDetailsTitle({ title }: { title: string }) {
-	return <Input className="text-2xl font-bold" defaultValue={title} />
+	return (
+		<input
+			defaultValue={title}
+			className="text-2xl font-bold w-full bg-inherit outline-none focus:ring-2 hover:ring-2 rounded-sm p-1 transition duration-300"
+			onChange={() => {}}
+		/>
+	)
 }
 
 function NoteDetailsInfo({ note }: Props) {
