@@ -28,9 +28,14 @@ export default function NotesList() {
 							>
 								<h3 className="font-semibold mb-3">{note.title}</h3>
 								<div className="space-x-2 mb-3">
-									<span className="bg-[#E0E4EA] rounded-sm text-[12px] px-[6px] py-[2px]">
-										{note.tags}
-									</span>
+									{note.tags.split(',').map((tag) => (
+										<span
+											key={Math.random()}
+											className="bg-[#E0E4EA] rounded-sm text-[12px] px-[6px] py-[2px]"
+										>
+											{tag.trim()}
+										</span>
+									))}
 								</div>
 
 								<p className="text-[12px]">
