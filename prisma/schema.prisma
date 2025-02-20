@@ -1,6 +1,17 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// This is your Prisma schema file,
+model Note {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  status    String   @default("draft")
+  tags      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 generator client {
   provider = "prisma-client-js"
 }
