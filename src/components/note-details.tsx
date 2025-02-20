@@ -7,21 +7,10 @@ import { Button } from './ui/button'
 import { useNoteContext } from '@/lib/hooks'
 import { Note } from '@prisma/client'
 import React, { useState } from 'react'
+import { editNote } from '@/actions/actions'
 
 export default function NoteDetails() {
-	const { selectedNote, addNoteMode } = useNoteContext()
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-
-		const formData = new FormData(e.currentTarget)
-		const newNote = {
-			title: formData.get('title') as string,
-			tags: formData.get('tags') as string,
-			content: formData.get('content') as string,
-		}
-		console.log(newNote)
-	}
+	const { addNoteMode, selectedNote } = useNoteContext()
 
 	return (
 		<section className="flex-1 px-6 py-5 flex flex-col">
@@ -29,7 +18,7 @@ export default function NoteDetails() {
 				<EmptyNoteView />
 			) : (
 				<>
-					<form onSubmit={handleSubmit} className="h-full flex flex-col">
+					<form className="h-full flex flex-col">
 						<NoteDetailsTitle title={selectedNote!.title} />
 						<NoteDetailsInfo note={selectedNote!} />
 						<Separator className="my-4" />
