@@ -20,11 +20,11 @@ type NoteContextProviderProps = {
 }
 
 export default function NoteContextProvider({
-	data,
+	data: notes,
 	children,
 }: NoteContextProviderProps) {
 	// State
-	const [notes, setNotes] = useState(data)
+
 	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
 	const [addNoteMode, setAddNoteMode] = useState(false)
 
@@ -33,9 +33,7 @@ export default function NoteContextProvider({
 
 	// Handlers
 	const handleAddNote = (newNote: Note) => {
-		setNotes((prevNotes) => {
-			return [...prevNotes, newNote]
-		})
+		console.log(newNote)
 	}
 
 	const handleSetSelectedNoteId = (id: number) => {

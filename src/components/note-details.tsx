@@ -18,7 +18,10 @@ export default function NoteDetails() {
 				<EmptyNoteView />
 			) : (
 				<>
-					<form className="h-full flex flex-col">
+					<form
+						action={(formData) => editNote(selectedNote?.id, formData)}
+						className="h-full flex flex-col"
+					>
 						<NoteDetailsTitle title={selectedNote!.title} />
 						<NoteDetailsInfo note={selectedNote!} />
 						<Separator className="my-4" />
@@ -58,6 +61,7 @@ function NoteDetailsTitle({ title }: { title: string }) {
 }
 
 function NoteDetailsInfo({ note }: Props) {
+	const [tags, setTags] = useState(note.tags)
 	return (
 		<section className="text-sm space-y-1 mt-4">
 			<div className="flex items-center">
@@ -69,8 +73,10 @@ function NoteDetailsInfo({ note }: Props) {
 				<input
 					id="tags"
 					name="tags"
-					onChange={() => {}}
-					value={note.tags}
+					onChange={(e) => {
+						setTags(e.target.value)
+					}}
+					value={tags}
 					className="w-full bg-inherit p-1 focus:ring-2 hover:ring-2 rounded-sm transition duration-300"
 				/>
 			</div>

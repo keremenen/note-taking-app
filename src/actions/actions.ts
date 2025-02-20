@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/lib/db'
+import { revalidatePath } from 'next/cache'
 
 export async function editNote(noteId, formData: FormData) {
 	// await prisma.note.create({
@@ -20,4 +21,5 @@ export async function editNote(noteId, formData: FormData) {
 			content: formData.get('content') as string,
 		},
 	})
+	revalidatePath('/app', 'layout')
 }
