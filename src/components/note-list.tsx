@@ -28,17 +28,18 @@ export default function NotesList() {
 							>
 								<h3 className="font-semibold mb-3">{note.title}</h3>
 								<div className="space-x-2 mb-3">
-									{note.tags.map((tag) => (
-										<span
-											key={tag}
-											className="bg-[#E0E4EA] rounded-sm text-[12px] px-[6px] py-[2px]"
-										>
-											{tag}
-										</span>
-									))}
+									<span className="bg-[#E0E4EA] rounded-sm text-[12px] px-[6px] py-[2px]">
+										{note.tags}
+									</span>
 								</div>
 
-								<p className="text-[12px]">{note.createdAt}</p>
+								<p className="text-[12px]">
+									{new Date(note.createdAt).toLocaleDateString('en-GB', {
+										day: 'numeric',
+										month: 'short',
+										year: 'numeric',
+									})}
+								</p>
 							</button>
 						</li>
 					))}

@@ -59,19 +59,15 @@ function NoteDetailsInfo({ note }: Props) {
 					<Tag size={16} />
 					Tags
 				</span>
-				{note?.tags.map((tag, i) => (
-					<span key={i}>
-						{tag}
-						{i < note.tags.length - 1 && `, `}
-					</span>
-				))}
+
+				<span>{note?.tags}</span>
 			</div>
 			<div className="flex items-center">
 				<span className="flex min-w-28 h-7 items-center gap-x-2">
 					<Clock size={16} />
 					Last edited
 				</span>
-				<span>{note?.createdAt}</span>
+				{/* <span>{note?.createdAt}</span> */}
 			</div>
 		</section>
 	)

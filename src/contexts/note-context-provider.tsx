@@ -1,83 +1,8 @@
 'use client'
-
+import { Note } from '@prisma/client'
 import { createContext, useState } from 'react'
 
-const data = [
-	{
-		id: 1,
-		title: 'React Performance Optimization',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 2,
-		title: 'Japan Travel Planning',
-		tags: ['Travel', 'Personal'],
-		createdAt: '28 Oct 2024',
-	},
-	{
-		id: 3,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 4,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 5,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 6,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 7,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 8,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 9,
-		title: 'Favorite Pasta Recipes',
-		tags: ['Cooking', 'Recipes'],
-		createdAt: '27 Oct 2024',
-	},
-	{
-		id: 10,
-		title: 'Weekly Workout Plan',
-		tags: ['Dev', 'React'],
-		createdAt: '29 Oct 2024',
-	},
-	{
-		id: 11,
-		title: 'Meal Prep Ideas',
-		tags: ['Cooking', 'Health', 'Recipes'],
-		createdAt: '29 Oct 2024',
-	},
-]
 export const NoteContext = createContext<TNoteContext | null>(null)
-
-type Note = {
-	id: number
-	title: string
-	tags: string[]
-	createdAt: string
-}
 
 type TNoteContext = {
 	notes: Note[]
@@ -90,10 +15,12 @@ type TNoteContext = {
 }
 
 type NoteContextProviderProps = {
+	data: Note[]
 	children: React.ReactNode
 }
 
 export default function NoteContextProvider({
+	data,
 	children,
 }: NoteContextProviderProps) {
 	// State
