@@ -25,3 +25,20 @@ export async function deleteNote(noteId: number) {
 	})
 	revalidatePath('/app', 'layout')
 }
+
+export async function toggleArchiveNote(noteId: number) {
+	const note = await prisma.note.findUnique({
+		where: {
+			id: noteId,
+		},
+	})
+	await prisma.note.update({
+		where: {
+			id: noteId,
+		},
+		data: {
+			status: note?.status === 'active' ? 'archived' : 'active',
+		},
+	})
+	revalidatePath('/app', 'layout')
+}

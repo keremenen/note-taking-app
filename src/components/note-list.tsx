@@ -11,10 +11,15 @@ export default function NotesList({ type }: { type?: 'archived' | 'active' }) {
 
 	let currentNotes: Note[] = []
 
-	if (type === 'archived') {
-		currentNotes = notes.filter((note) => note.status === 'archived')
-	} else {
-		currentNotes = notes.filter((note) => note.status === 'active')
+	switch (type) {
+		case 'archived':
+			currentNotes = notes.filter((note) => note.status === 'archived')
+			break
+		case 'active':
+			currentNotes = notes.filter((note) => note.status === 'active')
+			break
+		default:
+			currentNotes = notes
 	}
 
 	return (
