@@ -7,10 +7,9 @@ import { Button } from './ui/button'
 import { useNoteContext } from '@/lib/hooks'
 import { Note } from '@prisma/client'
 import React, { useEffect, useState } from 'react'
-import { editNote } from '@/actions/actions'
 
 export default function NoteDetails() {
-	const { addNoteMode, selectedNote } = useNoteContext()
+	const { addNoteMode, selectedNote, handleEditSelectedNote } = useNoteContext()
 
 	return (
 		<section className="flex-1 px-6 py-5 flex flex-col">
@@ -19,13 +18,15 @@ export default function NoteDetails() {
 			) : (
 				<>
 					<form
-						action={(formData) => editNote(selectedNote?.id, formData)}
+						action={(formData) =>
+							handleEditSelectedNote(selectedNote?.id, formData)
+						}
 						className="h-full flex flex-col"
 					>
-						<NoteDetailsTitle title={selectedNote!.title} />
-						<NoteDetailsInfo note={selectedNote!} />
+						<NoteDetailsTitle title={selectedNote.title} />
+						<NoteDetailsInfo note={selectedNote} />
 						<Separator className="my-4" />
-						<Textarea className="flex-1" id="content" name="content" />
+						<NoteDetailsContent content={selectedNote.content} />
 						<Separator className="my-4" />
 						<NoteDetailsActions />
 					</form>
@@ -44,6 +45,24 @@ function EmptyNoteView() {
 		<>
 			<NoteDetailsTitle title="Enter a title" />
 		</>
+	)
+}
+
+function NoteDetailsContent({ content }: { content: string }) {
+	const [currentContent, setCurrentContent] = useState(content)
+
+	useEffect(() => {
+		setCurrentContent(content)
+	}, [content])
+
+	return (
+		<Textarea
+			className="flex-1"
+			id="content"
+			name="content"
+			value={currentContent}
+			onChange={(e) => setCurrentContent(e.target.value)}
+		/>
 	)
 }
 
