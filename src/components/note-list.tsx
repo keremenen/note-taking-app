@@ -20,6 +20,7 @@ export default function NotesList({ type }: { type?: 'archived' | 'active' }) {
 			break
 		default:
 			currentNotes = notes
+			break
 	}
 
 	return (
