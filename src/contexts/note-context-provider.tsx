@@ -1,7 +1,8 @@
 'use client'
 import { deleteNote, editNote, toggleArchiveNote } from '@/actions/actions'
+import { getTags } from '@/lib/utils'
 import { Note } from '@prisma/client'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export const NoteContext = createContext<TNoteContext | null>(null)
 
@@ -10,6 +11,7 @@ type TNoteContext = {
 	selectedNoteId: number | null
 	selectedNote: Note | undefined
 	addNoteMode: boolean
+	tags: string[]
 	handleActiveAddNoteMode: () => void
 	handleEditSelectedNote: (id: number, newNoteData: FormData) => void
 	// handleAddNote: (newNote: Note) => void
@@ -31,6 +33,10 @@ export default function NoteContextProvider({
 
 	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
 	const [addNoteMode, setAddNoteMode] = useState(false)
+
+	// const [tags, setTags] = useState<string[]>(notes.map((note) => note.tags))
+
+	const [tags, setTags] = useState<string[]>(getTags(notes))
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
@@ -56,10 +62,13 @@ export default function NoteContextProvider({
 	}
 
 	const handleDeleteSelectedNote = (id: number) => {
-		console.log(`Testing delete note, id: ${id}`)
-		deleteNote(id)
 		setSelectedNoteId(null)
+		deleteNote(id)
 	}
+
+	useEffect(() => {
+		setTags(getTags(notes))
+	}, [notes])
 
 	return (
 		<NoteContext.Provider
@@ -68,6 +77,7 @@ export default function NoteContextProvider({
 				selectedNoteId,
 				selectedNote,
 				addNoteMode,
+				tags,
 				handleActiveAddNoteMode,
 				handleDeleteSelectedNote,
 				handleEditSelectedNote,

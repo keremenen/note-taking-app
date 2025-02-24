@@ -15,6 +15,7 @@ import {
 import Logo from './logo'
 
 import { usePathname } from 'next/navigation'
+import { useNoteContext } from '@/lib/hooks'
 
 // Menu items.
 const items = [
@@ -75,6 +76,7 @@ const routes = [
 
 export function AppSidebar() {
 	const pathname = usePathname()
+	const { tags } = useNoteContext()
 
 	return (
 		<Sidebar>
@@ -101,12 +103,12 @@ export function AppSidebar() {
 					<SidebarGroupLabel>Tags</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{items.map((item) => (
-								<SidebarMenuItem key={item.title}>
+							{tags.map((item, i) => (
+								<SidebarMenuItem key={i}>
 									<SidebarMenuButton asChild>
-										<a href={item.url}>
+										<a href="#">
 											<Tag />
-											<span>{item.title}</span>
+											<span>{item}</span>
 										</a>
 									</SidebarMenuButton>
 								</SidebarMenuItem>
