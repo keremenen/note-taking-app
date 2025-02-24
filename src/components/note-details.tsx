@@ -14,7 +14,7 @@ export default function NoteDetails() {
 
 	return (
 		<section className="flex-1 px-6 py-5 flex flex-col">
-			{addNoteMode ? (
+			{addNoteMode || !selectedNote ? (
 				<EmptyNoteView />
 			) : (
 				<>
@@ -111,7 +111,7 @@ function NoteDetailsActions() {
 	return (
 		<div className="flex gap-4">
 			<Button type="submit">Save</Button>
-			<Button variant="outline">Delete</Button>
+			<Button variant="outline">Can</Button>
 		</div>
 	)
 }
