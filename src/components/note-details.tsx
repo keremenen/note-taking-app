@@ -6,7 +6,7 @@ import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { useNoteContext } from '@/lib/hooks'
 import { Note } from '@prisma/client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { editNote } from '@/actions/actions'
 
 export default function NoteDetails() {
@@ -49,6 +49,11 @@ function EmptyNoteView() {
 
 function NoteDetailsTitle({ title }: { title: string }) {
 	const [currentTitle, setCurrentTitle] = useState(title)
+
+	useEffect(() => {
+		setCurrentTitle(title)
+	}, [title])
+
 	return (
 		<input
 			id="title"
@@ -62,6 +67,11 @@ function NoteDetailsTitle({ title }: { title: string }) {
 
 function NoteDetailsInfo({ note }: Props) {
 	const [tags, setTags] = useState(note.tags)
+
+	useEffect(() => {
+		setTags(note.tags)
+	}, [note])
+
 	return (
 		<section className="text-sm space-y-1 mt-4">
 			<div className="flex items-center">

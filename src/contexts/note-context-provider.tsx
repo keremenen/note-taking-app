@@ -46,8 +46,6 @@ export default function NoteContextProvider({
 		setAddNoteMode(true)
 	}
 
-	console.log(selectedNoteId)
-
 	return (
 		<NoteContext.Provider
 			value={{
