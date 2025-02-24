@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Tag } from 'lucide-react'
+import { Clock, Lightbulb, Tag } from 'lucide-react'
 import { Separator } from './ui/separator'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
@@ -121,6 +121,14 @@ function NoteDetailsInfo({ note }: Props) {
 						year: 'numeric',
 					})}
 				</span>
+			</div>
+			{/* DELTE THIS AFTER RELEASE */}
+			<div className="flex items-center">
+				<span className="flex min-w-28 h-7 items-center gap-x-2">
+					<Lightbulb size={16} />
+					Status
+				</span>
+				<span className="p-1">{note.status}</span>
 			</div>
 		</section>
 	)
