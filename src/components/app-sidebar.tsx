@@ -1,6 +1,5 @@
 'use client'
 import { Archive, Home, Tag } from 'lucide-react'
-
 import {
 	Sidebar,
 	SidebarContent,
@@ -61,6 +60,19 @@ const items = [
 	},
 ]
 
+const routes = [
+	{
+		title: 'All Notes',
+		url: '/app/dashboard',
+		icon: <Home />,
+	},
+	{
+		title: 'Archived Notes',
+		url: '/app/dashboard/archive',
+		icon: <Archive />,
+	},
+]
+
 export function AppSidebar() {
 	const pathname = usePathname()
 
@@ -72,28 +84,16 @@ export function AppSidebar() {
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarMenu>
-						<SidebarMenuItem>
-							<SidebarMenuButton
-								asChild
-								isActive={!pathname.includes('archive')}
-							>
-								<a href="/app/dashboard">
-									<Home />
-									<span>All Notes</span>
-								</a>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton
-								asChild
-								isActive={pathname.includes('archive')}
-							>
-								<a href="/app/dashboard/archive">
-									<Archive />
-									<span>Archived Notes</span>
-								</a>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
+						{routes.map((route) => (
+							<SidebarMenuItem key={route.title}>
+								<SidebarMenuButton asChild isActive={pathname === route.url}>
+									<a href={route.url}>
+										{route.icon}
+										<span>{route.title}</span>
+									</a>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						))}
 					</SidebarMenu>
 				</SidebarGroup>
 				<SidebarSeparator />
