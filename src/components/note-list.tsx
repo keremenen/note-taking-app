@@ -3,10 +3,19 @@
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 // import { Separator } from './ui/separator'
+import { Note } from '@prisma/client'
 
-export default function NotesList() {
+export default function NotesList({ type }: { type?: 'archived' | 'active' }) {
 	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
 		useNoteContext()
+
+	let currentNotes: Note[] = []
+
+	if (type === 'archived') {
+		currentNotes = notes.filter((note) => note.status === 'archived')
+	} else {
+		currentNotes = notes.filter((note) => note.status === 'active')
+	}
 
 	return (
 		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
@@ -17,7 +26,7 @@ export default function NotesList() {
 			</div>
 			<section>
 				<ul className="space-y-2">
-					{notes.map((note) => (
+					{currentNotes.map((note) => (
 						<li
 							className=" hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer transition duration-300"
 							key={Math.random()}

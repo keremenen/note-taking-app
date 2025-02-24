@@ -3,14 +3,14 @@ import NoteDetails from '@/components/note-details'
 import NotesList from '@/components/note-list'
 import NoteOptions from '@/components/note-options'
 
-export default function DashboardPage() {
+export default function ArchivedNotesPage() {
 	return (
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
 			<DashboardHeader title={'Archived Notes'} />
 			<section className="flex flex-row flex-1 overflow-auto">
 				{/* NOTES LIST */}
 
-				<NotesList />
+				<NotesList type="archived" />
 				{/* NOTE DETAILS */}
 				<NoteDetails />
 				{/* NOTE OPTIONS */}
