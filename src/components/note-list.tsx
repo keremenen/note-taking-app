@@ -39,7 +39,7 @@ export default function NotesList() {
 								</div>
 
 								<p className="text-[12px]">
-									{new Date(note.createdAt).toLocaleDateString('en-GB', {
+									{new Date(note.updatedAt).toLocaleDateString('en-GB', {
 										day: 'numeric',
 										month: 'short',
 										year: 'numeric',

@@ -115,7 +115,7 @@ function NoteDetailsInfo({ note }: Props) {
 					Last edited
 				</span>
 				<span className="p-1">
-					{new Date(note.createdAt).toLocaleDateString('en-GB', {
+					{new Date(note.updatedAt).toLocaleDateString('en-GB', {
 						day: 'numeric',
 						month: 'short',
 						year: 'numeric',
