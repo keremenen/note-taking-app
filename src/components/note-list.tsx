@@ -32,7 +32,7 @@ export default function NotesList({ type }: NoteListProps) {
 
 	if (tag) {
 		currentNotes = currentNotes.filter((note) =>
-			note.tags.toLowerCase().includes(tag)
+			note.tags.toLowerCase().includes(tag.toLowerCase())
 		)
 	}
 
