@@ -48,6 +48,9 @@ export default function NotesList({ type }: NoteListProps) {
 						them anytime.
 					</p>
 				)}
+				{tag && (
+					<p className="text-sm text-[#6B7280] mb-4">{`All notes with the ${tag} tag are shown here.`}</p>
+				)}
 
 				{currentNotes.length === 0 && type === 'archive' ? (
 					<EmptyListInfo>
