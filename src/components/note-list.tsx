@@ -30,8 +30,6 @@ export default function NotesList({ type }: NoteListProps) {
 			break
 	}
 
-	console.log(currentNotes)
-
 	if (tag) {
 		currentNotes = currentNotes.filter((note) =>
 			note.tags.toLowerCase().includes(tag)
