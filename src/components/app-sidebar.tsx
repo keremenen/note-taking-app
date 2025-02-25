@@ -65,7 +65,7 @@ export function AppSidebar() {
 							{tags.map((item, i) => (
 								<SidebarMenuItem key={i}>
 									<SidebarMenuButton asChild>
-										<Link href={`/app/dashboard?tag=${item.toLowerCase()}`}>
+										<Link href={`/app/dashboard?tag=${item}`}>
 											<Tag />
 											<span>{item}</span>
 										</Link>
