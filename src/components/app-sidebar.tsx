@@ -18,48 +18,6 @@ import { usePathname } from 'next/navigation'
 import { useNoteContext } from '@/lib/hooks'
 
 // Menu items.
-const items = [
-	{
-		title: 'Cooking',
-		url: '#',
-	},
-	{
-		title: 'Dev',
-		url: '#',
-	},
-	{
-		title: 'Fitness',
-		url: '#',
-	},
-	{
-		title: 'Health',
-		url: '#',
-	},
-	{
-		title: 'Personal',
-		url: '#',
-	},
-	{
-		title: 'React',
-		url: '#',
-	},
-	{
-		title: 'Recipes',
-		url: '#',
-	},
-	{
-		title: 'Shopping',
-		url: '#',
-	},
-	{
-		title: 'Travel',
-		url: '#',
-	},
-	{
-		title: 'TypeScript',
-		url: '#',
-	},
-]
 
 const routes = [
 	{

@@ -60,6 +60,7 @@ function NoteDetailsContent({ content }: { content: string }) {
 			className="flex-1"
 			id="content"
 			name="content"
+			spellCheck="false"
 			value={currentContent}
 			onChange={(e) => setCurrentContent(e.target.value)}
 		/>
