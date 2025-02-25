@@ -1,9 +1,9 @@
 'use client'
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
-import { Archive, Trash } from 'lucide-react'
+import { Archive, RefreshCcw, Trash } from 'lucide-react'
 
-export default function NoteOptions() {
+export default function NoteOptions({ type }: { type?: 'archive' }) {
 	const { selectedNoteId, handleDeleteSelectedNote, handleToggleArchiveNote } =
 		useNoteContext()
 
@@ -17,8 +17,17 @@ export default function NoteOptions() {
 							className="w-full"
 							onClick={() => handleToggleArchiveNote(selectedNoteId)}
 						>
-							<Archive size={16} />
-							Archive Note
+							{type === 'archive' ? (
+								<>
+									<RefreshCcw size={16} />
+									<span>Restore note</span>
+								</>
+							) : (
+								<>
+									<Archive size={16} />
+									<span>Archive note</span>
+								</>
+							)}
 						</Button>
 						<Button
 							variant={'outline'}
