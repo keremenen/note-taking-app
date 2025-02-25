@@ -1,15 +1,25 @@
-import React from 'react'
+'use client'
 import { Input } from './ui/input'
 import { Settings } from 'lucide-react'
+import { usePathname, useSearchParams } from 'next/navigation'
 
-type DashboardHeaderProps = {
-	title: string
-}
+export default function DashboardHeader() {
+	const pathName = usePathname()
+	const searchParams = useSearchParams()
+	const tag = searchParams.get('tag')
 
-export default function DashboardHeader({ title }: DashboardHeaderProps) {
 	return (
 		<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
-			<h1 className="font-bold text-2xl ">{title}</h1>
+			{pathName.includes('archive') ? (
+				<HeaderHeading>Archived Notes</HeaderHeading>
+			) : tag ? (
+				<HeaderHeading>
+					<span className="opacity-50">Notes tagged with</span> {tag}
+				</HeaderHeading>
+			) : (
+				<HeaderHeading>All Notes</HeaderHeading>
+			)}
+
 			<div className="ml-auto flex items-center gap-4">
 				<Input
 					placeholder="Search by title, content, or tags…"
@@ -19,4 +29,8 @@ export default function DashboardHeader({ title }: DashboardHeaderProps) {
 			</div>
 		</header>
 	)
+}
+
+function HeaderHeading({ children }: { children: React.ReactNode }) {
+	return <h1 className="font-bold text-2xl ">{children}</h1>
 }

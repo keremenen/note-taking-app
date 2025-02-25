@@ -6,7 +6,7 @@ import NoteOptions from '@/components/note-options'
 export default function ArchivedNotesPage() {
 	return (
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
-			<DashboardHeader title={'Archived Notes'} />
+			<DashboardHeader />
 			<section className="flex flex-row flex-1 overflow-auto">
 				{/* NOTES LIST */}
 
