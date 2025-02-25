@@ -2,7 +2,6 @@
 
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
-// import { Separator } from './ui/separator'
 import { Note } from '@prisma/client'
 
 export default function NotesList({ type }: { type?: 'archived' | 'active' }) {
@@ -29,6 +28,12 @@ export default function NotesList({ type }: { type?: 'archived' | 'active' }) {
 				<Button className="w-full mb-4 " onClick={handleActiveAddNoteMode}>
 					Create new note
 				</Button>
+				{type === 'archived' && (
+					<p className="text-sm text-[#6B7280]">
+						All your archived notes are stored here. You can restore or delete
+						them anytime.
+					</p>
+				)}
 			</div>
 			<section>
 				<ul className="space-y-2">
