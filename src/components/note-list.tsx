@@ -3,8 +3,16 @@
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Note } from '@prisma/client'
+import { useSearchParams } from 'next/navigation'
 
-export default function NotesList({ type }: { type?: 'archive' | 'active' }) {
+type NoteListProps = {
+	type?: 'archive' | 'active'
+}
+
+export default function NotesList({ type }: NoteListProps) {
+	const searchParams = useSearchParams()
+	const tag = searchParams.get('tag')
+
 	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
 		useNoteContext()
 
@@ -20,6 +28,14 @@ export default function NotesList({ type }: { type?: 'archive' | 'active' }) {
 		default:
 			currentNotes = notes
 			break
+	}
+
+	console.log(currentNotes)
+
+	if (tag) {
+		currentNotes = currentNotes.filter((note) =>
+			note.tags.toLowerCase().includes(tag)
+		)
 	}
 
 	return (

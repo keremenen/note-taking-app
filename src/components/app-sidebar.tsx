@@ -16,6 +16,7 @@ import Logo from './logo'
 
 import { usePathname } from 'next/navigation'
 import { useNoteContext } from '@/lib/hooks'
+import Link from 'next/link'
 
 // Menu items.
 
@@ -47,10 +48,10 @@ export function AppSidebar() {
 						{routes.map((route) => (
 							<SidebarMenuItem key={route.title}>
 								<SidebarMenuButton asChild isActive={pathname === route.url}>
-									<a href={route.url}>
+									<Link href={route.url}>
 										{route.icon}
 										<span>{route.title}</span>
-									</a>
+									</Link>
 								</SidebarMenuButton>
 							</SidebarMenuItem>
 						))}
@@ -64,10 +65,10 @@ export function AppSidebar() {
 							{tags.map((item, i) => (
 								<SidebarMenuItem key={i}>
 									<SidebarMenuButton asChild>
-										<a href="#">
+										<Link href={`/app/dashboard?tag=${item.toLowerCase()}`}>
 											<Tag />
 											<span>{item}</span>
-										</a>
+										</Link>
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}

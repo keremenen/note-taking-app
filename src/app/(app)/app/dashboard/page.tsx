@@ -3,7 +3,7 @@ import NoteDetails from '@/components/note-details'
 import NotesList from '@/components/note-list'
 import NoteOptions from '@/components/note-options'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
 	return (
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
 			<DashboardHeader title={'All notes'} />
