@@ -1,5 +1,4 @@
-'use client'
-import { Archive, Trash } from 'lucide-react'
+import { Archive, CornerUpLeft, Trash } from 'lucide-react'
 import { Button, ButtonProps } from './ui/button'
 import {
 	Dialog,
@@ -34,7 +33,7 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 				<NoteOptionButton
 					onClick={() => handleRestoreSelectedNote(selectedNoteId!)}
 				>
-					<Archive />
+					<CornerUpLeft />
 					{children}
 				</NoteOptionButton>
 			) : null}
