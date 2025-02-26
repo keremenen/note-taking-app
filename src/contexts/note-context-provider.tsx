@@ -20,10 +20,10 @@ type TNoteContext = {
 	handleActiveAddNoteMode: () => void
 	handleEditSelectedNote: (id: number, newNoteData: FormData) => void
 	// handleAddNote: (newNote: Note) => void
-	handleSetSelectedNoteId: (id: number) => void
-	handleDeleteSelectedNote: (id: number) => void
-	handleArchiveSelectedNote: (id: number) => void
-	handleRestoreSelectedNote: (id: number) => void
+	handleSetSelectedNoteId: (id: Note['id']) => void
+	handleDeleteSelectedNote: (id: Note['id']) => void
+	handleArchiveSelectedNote: (id: Note['id']) => void
+	handleRestoreSelectedNote: (id: Note['id']) => void
 }
 
 type NoteContextProviderProps = {
