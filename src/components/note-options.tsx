@@ -7,6 +7,7 @@ export default function NoteOptions({ type }: { type?: 'archive' }) {
 				<>
 					<NoteButton actionType="archive">Archive Note</NoteButton>
 					<NoteButton actionType="delete">Delete Note</NoteButton>
+					<NoteButton actionType="restore">Restore</NoteButton>
 
 					{/* <Button
 							variant={'outline'}

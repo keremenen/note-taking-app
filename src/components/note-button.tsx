@@ -14,13 +14,17 @@ import { useNoteContext } from '@/lib/hooks'
 import React, { forwardRef, useState } from 'react'
 
 type NoteButtonProps = {
-	actionType: 'archive' | 'delete'
+	actionType: 'archive' | 'delete' | 'restore'
 	children: React.ReactNode
 }
 
 export default function NoteButton({ actionType, children }: NoteButtonProps) {
-	const { selectedNoteId, handleToggleArchiveNote, handleDeleteSelectedNote } =
-		useNoteContext()
+	const {
+		selectedNoteId,
+		handleArchiveSelectedNote,
+		handleRestoreSelectedNote,
+		handleDeleteSelectedNote,
+	} = useNoteContext()
 
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -32,12 +36,17 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 						<Archive />
 						{children}
 					</NoteOptionButton>
-				) : (
+				) : actionType === 'delete' ? (
 					<NoteOptionButton>
 						<Trash />
 						{children}
 					</NoteOptionButton>
-				)}
+				) : actionType === 'restore' ? (
+					<NoteOptionButton>
+						<Archive />
+						{children}
+					</NoteOptionButton>
+				) : null}
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -78,10 +87,10 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 								>
 									Cancel
 								</Button>
-								{actionType === 'archive' ? (
+								{/* {actionType === 'archive' ? (
 									<Button
 										onClick={() => {
-											handleToggleArchiveNote(selectedNoteId!)
+											handleArchiveSelectedNote(selectedNoteId!)
 											setIsDialogOpen(false)
 										}}
 									>
@@ -97,7 +106,36 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 									>
 										Delete Note
 									</Button>
-								)}
+								)} */}
+								{actionType === 'archive' ? (
+									<Button
+										onClick={() => {
+											handleArchiveSelectedNote(selectedNoteId!)
+											setIsDialogOpen(false)
+										}}
+									>
+										Archive Note
+									</Button>
+								) : actionType === 'delete' ? (
+									<Button
+										onClick={() => {
+											handleDeleteSelectedNote(selectedNoteId!)
+											setIsDialogOpen(false)
+										}}
+										variant={'destructive'}
+									>
+										Delete Note
+									</Button>
+								) : actionType === 'restore' ? (
+									<Button
+										onClick={() => {
+											handleRestoreSelectedNote(selectedNoteId!)
+											setIsDialogOpen(false)
+										}}
+									>
+										Restore Note
+									</Button>
+								) : null}
 							</div>
 						</section>
 					</DialogDescription>
