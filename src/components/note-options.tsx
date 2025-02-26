@@ -2,6 +2,7 @@
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Archive, RefreshCcw, Trash } from 'lucide-react'
+import NoteButton from './note-button'
 
 export default function NoteOptions({ type }: { type?: 'archive' }) {
 	const { selectedNoteId, handleDeleteSelectedNote, handleToggleArchiveNote } =
@@ -12,6 +13,7 @@ export default function NoteOptions({ type }: { type?: 'archive' }) {
 			<section className="basis-72 bg-white px-5 py-7 space-y-4 border-[#E0E4EA] border-l">
 				{selectedNoteId !== null && (
 					<>
+						<NoteButton />
 						<Button
 							variant={'outline'}
 							className="w-full"
