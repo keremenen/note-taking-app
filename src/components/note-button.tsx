@@ -29,119 +29,99 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	return (
-		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-			<DialogTrigger asChild>
-				{actionType === 'archive' ? (
-					<NoteOptionButton>
-						<Archive />
-						{children}
-					</NoteOptionButton>
-				) : actionType === 'delete' ? (
-					<NoteOptionButton>
-						<Trash />
-						{children}
-					</NoteOptionButton>
-				) : actionType === 'restore' ? (
-					<NoteOptionButton>
-						<Archive />
-						{children}
-					</NoteOptionButton>
-				) : null}
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogDescription className="flex" asChild>
-						<section className="flex flex-col">
-							<section className="flex">
-								<div className="basis-24">
-									<div className="bg-[#F3F5F8] flex items-center justify-center size-10 rounded-lg">
-										{actionType === 'archive' ? <Archive /> : <Trash />}
+		<>
+			{actionType === 'restore' ? (
+				<NoteOptionButton
+					onClick={() => handleRestoreSelectedNote(selectedNoteId!)}
+				>
+					<Archive />
+					{children}
+				</NoteOptionButton>
+			) : null}
+
+			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+				<DialogTrigger asChild>
+					{actionType === 'archive' ? (
+						<NoteOptionButton>
+							<Archive />
+							{children}
+						</NoteOptionButton>
+					) : actionType === 'delete' ? (
+						<NoteOptionButton>
+							<Trash />
+							{children}
+						</NoteOptionButton>
+					) : null}
+				</DialogTrigger>
+				<DialogContent>
+					<DialogHeader>
+						<DialogDescription className="flex" asChild>
+							<section className="flex flex-col">
+								<section className="flex">
+									<div className="basis-24">
+										<div className="bg-[#F3F5F8] flex items-center justify-center size-10 rounded-lg">
+											{actionType === 'archive' ? <Archive /> : <Trash />}
+										</div>
 									</div>
-								</div>
-								<div>
-									<DialogTitle className="text-[#0E121B] mb-3">
-										{actionType === 'archive' ? 'Archive Note' : 'Delete Note'}
-									</DialogTitle>
-									<p className="text-[#2B303B] text-sm">
-										{actionType === 'archive' ? (
-											<>
-												Are you sure you want to archive this note? You can find
-												it in the Archived Notes section and restore it anytime.
-											</>
-										) : (
-											<>
-												Are you sure you want to permanently delete this note?
-												This action cannot be undone.
-											</>
-										)}
-									</p>
+									<div>
+										<DialogTitle className="text-[#0E121B] mb-3">
+											{actionType === 'archive'
+												? 'Archive Note'
+												: 'Delete Note'}
+										</DialogTitle>
+										<p className="text-[#2B303B] text-sm">
+											{actionType === 'archive' ? (
+												<>
+													Are you sure you want to archive this note? You can
+													find it in the Archived Notes section and restore it
+													anytime.
+												</>
+											) : (
+												<>
+													Are you sure you want to permanently delete this note?
+													This action cannot be undone.
+												</>
+											)}
+										</p>
+									</div>
+								</section>
+								<Separator className="my-4" />
+								<div className="gap-x-4 flex justify-end">
+									<Button
+										variant={'secondary'}
+										onClick={() => {
+											setIsDialogOpen(false)
+										}}
+									>
+										Cancel
+									</Button>
+									{actionType === 'archive' ? (
+										<Button
+											onClick={() => {
+												handleArchiveSelectedNote(selectedNoteId!)
+												setIsDialogOpen(false)
+											}}
+										>
+											Archive Note
+										</Button>
+									) : (
+										<Button
+											onClick={() => {
+												handleDeleteSelectedNote(selectedNoteId!)
+												setIsDialogOpen(false)
+											}}
+											variant={'destructive'}
+										>
+											Delete Note
+										</Button>
+									)}
 								</div>
 							</section>
-							<Separator className="my-4" />
-							<div className="gap-x-4 flex justify-end">
-								<Button
-									variant={'secondary'}
-									onClick={() => {
-										setIsDialogOpen(false)
-									}}
-								>
-									Cancel
-								</Button>
-								{/* {actionType === 'archive' ? (
-									<Button
-										onClick={() => {
-											handleArchiveSelectedNote(selectedNoteId!)
-											setIsDialogOpen(false)
-										}}
-									>
-										Archive Note
-									</Button>
-								) : (
-									<Button
-										onClick={() => {
-											handleDeleteSelectedNote(selectedNoteId!)
-											setIsDialogOpen(false)
-										}}
-										variant={'destructive'}
-									>
-										Delete Note
-									</Button>
-								)} */}
-								{actionType === 'archive' ? (
-									<Button
-										onClick={() => {
-											handleArchiveSelectedNote(selectedNoteId!)
-											setIsDialogOpen(false)
-										}}
-									>
-										Archive Note
-									</Button>
-								) : actionType === 'delete' ? (
-									<Button
-										onClick={() => {
-											handleDeleteSelectedNote(selectedNoteId!)
-											setIsDialogOpen(false)
-										}}
-										variant={'destructive'}
-									>
-										Delete Note
-									</Button>
-								) : actionType === 'restore' ? (
-									<Button
-										onClick={() => {
-											handleRestoreSelectedNote(selectedNoteId!)
-											setIsDialogOpen(false)
-										}}
-									>
-										Restore Note
-									</Button>
-								) : null}
-							</div>
-						</section>
-					</DialogDescription>
-				</DialogHeader>
-			</DialogContent>
-		</Dialog>
+						</DialogDescription>
+					</DialogHeader>
+				</DialogContent>
+			</Dialog>
+		</>
 	)
 }
 
