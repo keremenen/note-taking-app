@@ -3,7 +3,7 @@
 import { useNoteContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Note } from '@prisma/client'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 type NoteListProps = {
 	type?: 'archive' | 'active'
@@ -13,21 +13,18 @@ export default function NotesList({ type }: NoteListProps) {
 	const searchParams = useSearchParams()
 	const tag = searchParams.get('tag')
 
+	const pathname = usePathname()
+	const isArchive = pathname.includes('archive')
+
 	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
 		useNoteContext()
 
 	let currentNotes: Note[] = []
 
-	switch (type) {
-		case 'archive':
-			currentNotes = notes.filter((note) => note.status === 'archived')
-			break
-		case 'active':
-			currentNotes = notes.filter((note) => note.status === 'active')
-			break
-		default:
-			currentNotes = notes
-			break
+	if (isArchive) {
+		currentNotes = notes.filter((note) => note.status === 'archived')
+	} else {
+		currentNotes = notes.filter((note) => note.status === 'active')
 	}
 
 	if (tag) {
@@ -42,7 +39,7 @@ export default function NotesList({ type }: NoteListProps) {
 				<Button className="w-full mb-4 " onClick={handleActiveAddNoteMode}>
 					Create new note
 				</Button>
-				{type === 'archive' && (
+				{isArchive && (
 					<p className="text-sm text-[#6B7280] mb-4">
 						All your archived notes are stored here. You can restore or delete
 						them anytime.

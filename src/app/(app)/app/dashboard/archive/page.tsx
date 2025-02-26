@@ -10,11 +10,11 @@ export default function ArchivedNotesPage() {
 			<section className="flex flex-row flex-1 overflow-auto">
 				{/* NOTES LIST */}
 
-				<NotesList type="archive" />
+				<NotesList />
 				{/* NOTE DETAILS */}
 				<NoteDetails />
 				{/* NOTE OPTIONS */}
-				<NoteOptions type="archive" />
+				<NoteOptions />
 			</section>
 		</main>
 	)
