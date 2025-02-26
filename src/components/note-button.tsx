@@ -11,7 +11,7 @@ import {
 } from './ui/dialog'
 import { Separator } from './ui/separator'
 import { useNoteContext } from '@/lib/hooks'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 
 type NoteButtonProps = {
 	actionType: 'archive' | 'delete'
@@ -22,8 +22,10 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 	const { selectedNoteId, handleToggleArchiveNote, handleDeleteSelectedNote } =
 		useNoteContext()
 
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
+
 	return (
-		<Dialog>
+		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 			<DialogTrigger asChild>
 				{actionType === 'archive' ? (
 					<NoteOptionButton>
@@ -44,31 +46,54 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 							<section className="flex">
 								<div className="basis-24">
 									<div className="bg-[#F3F5F8] flex items-center justify-center size-10 rounded-lg">
-										<Archive />
+										{actionType === 'archive' ? <Archive /> : <Trash />}
 									</div>
 								</div>
 								<div>
 									<DialogTitle className="text-[#0E121B] mb-3">
-										Archive Note
+										{actionType === 'archive' ? 'Archive Note' : 'Delete Note'}
 									</DialogTitle>
 									<p className="text-[#2B303B] text-sm">
-										Are you sure you want to archive this note? You can find it
-										in the Archived Notes section and restore it anytime.
+										{actionType === 'archive' ? (
+											<>
+												Are you sure you want to archive this note? You can find
+												it in the Archived Notes section and restore it anytime.
+											</>
+										) : (
+											<>
+												Are you sure you want to permanently delete this note?
+												This action cannot be undone.
+											</>
+										)}
 									</p>
 								</div>
 							</section>
 							<Separator className="my-4" />
 							<div className="gap-x-4 flex justify-end">
-								<Button variant={'secondary'}>Cancel</Button>
+								<Button
+									variant={'secondary'}
+									onClick={() => {
+										setIsDialogOpen(false)
+									}}
+								>
+									Cancel
+								</Button>
 								{actionType === 'archive' ? (
 									<Button
-										onClick={() => handleToggleArchiveNote(selectedNoteId!)}
+										onClick={() => {
+											handleToggleArchiveNote(selectedNoteId!)
+											setIsDialogOpen(false)
+										}}
 									>
 										Archive Note
 									</Button>
 								) : (
 									<Button
-										onClick={() => handleDeleteSelectedNote(selectedNoteId!)}
+										onClick={() => {
+											handleDeleteSelectedNote(selectedNoteId!)
+											setIsDialogOpen(false)
+										}}
+										variant={'destructive'}
 									>
 										Delete Note
 									</Button>
