@@ -1,5 +1,6 @@
-import { Archive } from 'lucide-react'
-import { Button } from './ui/button'
+'use client'
+import { Archive, Trash } from 'lucide-react'
+import { Button, ButtonProps } from './ui/button'
 import {
 	Dialog,
 	DialogContent,
@@ -9,6 +10,8 @@ import {
 	DialogTrigger,
 } from './ui/dialog'
 import { Separator } from './ui/separator'
+import { useNoteContext } from '@/lib/hooks'
+import React, { forwardRef } from 'react'
 
 type NoteButtonProps = {
 	actionType: 'archive' | 'delete'
@@ -16,18 +19,22 @@ type NoteButtonProps = {
 }
 
 export default function NoteButton({ actionType, children }: NoteButtonProps) {
+	const { selectedNoteId, handleToggleArchiveNote, handleDeleteSelectedNote } =
+		useNoteContext()
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				{actionType === 'archive' ? (
-					<Button variant={'outline'} className="w-full">
-						<Archive size={16} />
+					<NoteOptionButton>
+						<Archive />
 						{children}
-					</Button>
+					</NoteOptionButton>
 				) : (
-					<Button variant="outline" className="w-full">
+					<NoteOptionButton>
+						<Trash />
 						{children}
-					</Button>
+					</NoteOptionButton>
 				)}
 			</DialogTrigger>
 			<DialogContent>
@@ -53,7 +60,19 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 							<Separator className="my-4" />
 							<div className="gap-x-4 flex justify-end">
 								<Button variant={'secondary'}>Cancel</Button>
-								<Button>Archive Note</Button>
+								{actionType === 'archive' ? (
+									<Button
+										onClick={() => handleToggleArchiveNote(selectedNoteId!)}
+									>
+										Archive Note
+									</Button>
+								) : (
+									<Button
+										onClick={() => handleDeleteSelectedNote(selectedNoteId!)}
+									>
+										Delete Note
+									</Button>
+								)}
 							</div>
 						</section>
 					</DialogDescription>
@@ -62,3 +81,17 @@ export default function NoteButton({ actionType, children }: NoteButtonProps) {
 		</Dialog>
 	)
 }
+
+type NoteOptionButtonProps = ButtonProps
+
+const NoteOptionButton = forwardRef<HTMLButtonElement, NoteOptionButtonProps>(
+	({ children, ...props }, ref) => {
+		return (
+			<Button ref={ref} variant="outline" className="w-full" {...props}>
+				{children}
+			</Button>
+		)
+	}
+)
+
+NoteOptionButton.displayName = 'NoteOptionButton'
