@@ -13,8 +13,10 @@ export default function NoteOptions({ type }: { type?: 'archive' }) {
 			<section className="basis-72 bg-white px-5 py-7 space-y-4 border-[#E0E4EA] border-l">
 				{selectedNoteId !== null && (
 					<>
-						<NoteButton />
-						<Button
+						<NoteButton actionType="archive">Archive Note</NoteButton>
+						<NoteButton actionType="archive">Delete Note</NoteButton>
+
+						{/* <Button
 							variant={'outline'}
 							className="w-full"
 							onClick={() => handleToggleArchiveNote(selectedNoteId)}
@@ -38,7 +40,7 @@ export default function NoteOptions({ type }: { type?: 'archive' }) {
 						>
 							<Trash size={16} />
 							Delete Note
-						</Button>
+						</Button> */}
 					</>
 				)}
 			</section>
