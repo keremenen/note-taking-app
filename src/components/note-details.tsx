@@ -21,7 +21,7 @@ export default function NoteDetails() {
 	}
 
 	return (
-	
+		<>
 			{addNoteMode ? (
 				<NoteWrapper>
 					<NoteForm actionType="add" />
@@ -29,7 +29,8 @@ export default function NoteDetails() {
 			) : (
 				<p>empty view</p>
 			)}
-	
+		</>
+	)
 }
 
 // function EmptyNoteView() {
