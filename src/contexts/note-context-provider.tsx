@@ -14,13 +14,16 @@ export const NoteContext = createContext<TNoteContext | null>(null)
 
 type TNoteContext = {
 	notes: Note[]
-	selectedNoteId: number | null
+	selectedNoteId: Note['id'] | null
 	selectedNote: Note | undefined
 	addNoteMode: boolean
 	tags: string[]
 	handleActiveAddNoteMode: () => void
-	handleEditSelectedNote: (id: Note['id'], newNoteData: FormData) => void
-	// handleAddNote: (newNote: Note) => void
+	handleEditSelectedNote: (
+		id: Note['id'],
+		newNoteData: Omit<NoteEssetials, 'updatedAt'>
+	) => void
+
 	handleSetSelectedNoteId: (id: Note['id']) => void
 	handleDeleteSelectedNote: (id: Note['id']) => void
 	handleArchiveSelectedNote: (id: Note['id']) => void
@@ -62,7 +65,7 @@ export default function NoteContextProvider({
 
 	const handleEditSelectedNote = async (
 		id: number,
-		newNoteData: NoteEssetials
+		newNoteData: Omit<NoteEssetials, 'updatedAt'>
 	) => {
 		editNote(id, newNoteData)
 	}

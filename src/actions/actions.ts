@@ -4,7 +4,10 @@ import prisma from '@/lib/db'
 import { NoteEssetials } from '@/lib/types'
 import { revalidatePath } from 'next/cache'
 
-export async function editNote(noteId: number, newNoteData: NoteEssetials) {
+export async function editNote(
+	noteId: number,
+	newNoteData: Omit<NoteEssetials, 'updatedAt'>
+) {
 	await prisma.note.update({
 		where: {
 			id: noteId,

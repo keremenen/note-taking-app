@@ -17,7 +17,12 @@ export function getTags(notes: Note[]) {
 export function getFormDefaultValues(
 	actionType: 'add' | 'edit',
 	selectedNote: Note | undefined
-) {
+): {
+	title?: string | undefined
+	content?: string | undefined
+	status?: string | undefined
+	tags?: string | undefined
+} {
 	return {
 		title: actionType === 'edit' ? selectedNote?.title : 'empty title',
 		content: actionType === 'edit' ? selectedNote?.content : 'empty content',

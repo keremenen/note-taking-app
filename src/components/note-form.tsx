@@ -12,7 +12,8 @@ import { Button } from './ui/button'
 type TNoteForm = {
 	title: string
 	content: string
-	status: 'active' | 'archived'
+	status: string
+
 	tags: string
 }
 
