@@ -36,19 +36,14 @@ export default function NoteContextProvider({
 	children,
 }: NoteContextProviderProps) {
 	// State
-
 	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
 	const [addNoteMode, setAddNoteMode] = useState(false)
-
-	// const [tags, setTags] = useState<string[]>(notes.map((note) => note.tags))
-
 	const [tags, setTags] = useState<string[]>(getTags(notes))
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
 
 	// Handlers
-
 	const handleArchiveSelectedNote = async (id: number) => {
 		await archiveNote(id)
 		setSelectedNoteId(null)
