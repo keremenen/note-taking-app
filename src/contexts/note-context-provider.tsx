@@ -5,6 +5,7 @@ import {
 	archiveNote,
 	restoreNote,
 } from '@/actions/actions'
+import { NoteEssetials } from '@/lib/types'
 import { getTags } from '@/lib/utils'
 import { Note } from '@prisma/client'
 import { createContext, useEffect, useState } from 'react'
@@ -59,6 +60,13 @@ export default function NoteContextProvider({
 		setSelectedNoteId(null)
 	}
 
+	const handleEditSelectedNote = async (
+		id: number,
+		newNoteData: NoteEssetials
+	) => {
+		editNote(id, newNoteData)
+	}
+
 	const handleSetSelectedNoteId = (id: number) => {
 		setSelectedNoteId(id)
 		setAddNoteMode(false)
@@ -67,10 +75,6 @@ export default function NoteContextProvider({
 	const handleActiveAddNoteMode = () => {
 		setSelectedNoteId(null)
 		setAddNoteMode(true)
-	}
-
-	const handleEditSelectedNote = (id: number, newNoteData: FormData) => {
-		editNote(id, newNoteData)
 	}
 
 	useEffect(() => {

@@ -1,18 +1,15 @@
 'use server'
 
 import prisma from '@/lib/db'
+import { NoteEssetials } from '@/lib/types'
 import { revalidatePath } from 'next/cache'
 
-export async function editNote(noteId: number, formData: FormData) {
+export async function editNote(noteId: number, newNoteData: NoteEssetials) {
 	await prisma.note.update({
 		where: {
 			id: noteId,
 		},
-		data: {
-			title: formData.get('title') as string,
-			tags: formData.get('tags') as string,
-			content: formData.get('content') as string,
-		},
+		data: newNoteData,
 	})
 	revalidatePath('/app', 'layout')
 }
