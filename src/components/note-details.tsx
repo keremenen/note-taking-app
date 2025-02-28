@@ -19,9 +19,7 @@ export default function NoteDetails() {
 				<NoteWrapper>
 					<NoteForm actionType="add" />
 				</NoteWrapper>
-			) : (
-				<p>empty view</p>
-			)}
+			) : null}
 		</>
 	)
 }
