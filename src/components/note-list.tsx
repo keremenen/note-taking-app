@@ -79,7 +79,7 @@ export default function NotesList({ type }: NoteListProps) {
 									className="text-left size-[100%] px-2 py-1"
 								>
 									<h3 className="font-semibold mb-3">{note.title}</h3>
-									<div className="space-x-2 mb-3">
+									<div className="mb-3 flex gap-x-3 gap-y-2 flex-wrap">
 										{note.tags.split(',').map((tag) => (
 											<span
 												key={Math.random()}
