@@ -1,6 +1,7 @@
 'use client'
 import { Input } from './ui/input'
 import { Settings } from 'lucide-react'
+import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function DashboardHeader() {
@@ -12,6 +13,8 @@ export default function DashboardHeader() {
 		<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
 			{pathName.includes('archive') ? (
 				<HeaderHeading>Archived Notes</HeaderHeading>
+			) : pathName.includes('settings') ? (
+				<HeaderHeading>Settings</HeaderHeading>
 			) : tag ? (
 				<HeaderHeading>
 					<span className="opacity-50">Notes tagged with</span> {tag}
@@ -25,7 +28,9 @@ export default function DashboardHeader() {
 					placeholder="Search by title, content, or tags…"
 					className="w-80"
 				/>
-				<Settings className="ml-auto" />
+				<Link href="/app/dashboard/settings">
+					<Settings className="ml-auto" />
+				</Link>
 			</div>
 		</header>
 	)
