@@ -1,8 +1,9 @@
 'use client'
+import { AvailableSettings } from '@/lib/types'
 import { createContext, useState } from 'react'
 
 type TSettingsContext = {
-	selectedOption: 'color-theme' | 'font-theme' | 'change-password'
+	selectedOption: AvailableSettings
 	handleChangeSelectedOption: (
 		option: TSettingsContext['selectedOption']
 	) => void

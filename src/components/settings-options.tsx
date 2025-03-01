@@ -4,10 +4,11 @@ import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 import { useSettingsContext } from '@/lib/hooks'
 import { JSX } from 'react'
+import { AvailableSettings } from '@/lib/types'
 
 type SettingsOption = {
 	label: string
-	value: 'color-theme' | 'font-theme' | 'change-password'
+	value: AvailableSettings
 	icon: JSX.Element
 }
 
