@@ -1,3 +1,8 @@
+'use client'
+
+import { useSettingsContext } from '@/lib/hooks'
+
 export default function SettingsContent() {
-	return <section>settings content</section>
+	const { selectedOption } = useSettingsContext()
+	return <section>{selectedOption}</section>
 }
