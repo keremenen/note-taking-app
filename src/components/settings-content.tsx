@@ -7,8 +7,12 @@ import { useState } from 'react'
 import { Button } from './ui/button'
 
 export default function SettingsContent() {
-	const { selectedOption } = useSettingsContext()
+	const { selectedOption, handleChangeSelectedOption } = useSettingsContext()
 	const [selectedValue, setSelectedValue] = useState('option-one')
+
+	const handleOptionClick = (option: string) => {
+		handleChangeSelectedOption(option)
+	}
 
 	return (
 		<section className="p-8 max-w-[528px] w-full">
@@ -21,7 +25,7 @@ export default function SettingsContent() {
 				<Button
 					className="flex items-center justify-start h-[4.5rem]"
 					variant={'outline'}
-					onClick={() => setSelectedValue('option-one')}
+					onClick={() => handleOptionClick('option-one')}
 				>
 					<Label htmlFor="option-one">Option one</Label>
 					<input
@@ -30,13 +34,13 @@ export default function SettingsContent() {
 						value="option-one"
 						className="ml-auto"
 						checked={selectedValue === 'option-one'}
-						onChange={() => setSelectedValue('option-one')}
+						onChange={() => handleOptionClick('option-one')}
 					/>
 				</Button>
 				<Button
 					variant={'outline'}
 					className="flex items-center space-x-2"
-					onClick={() => setSelectedValue('option-two')}
+					onClick={() => handleOptionClick('option-two')}
 				>
 					<Label htmlFor="option-two">Option two</Label>
 					<input
@@ -44,13 +48,13 @@ export default function SettingsContent() {
 						id="option-two"
 						value="option-two"
 						checked={selectedValue === 'option-two'}
-						onChange={() => setSelectedValue('option-two')}
+						onChange={() => handleOptionClick('option-two')}
 					/>
 				</Button>
 				<Button
 					variant={'outline'}
 					className="flex items-center space-x-2"
-					onClick={() => setSelectedValue('option-three')}
+					onClick={() => handleOptionClick('option-three')}
 				>
 					<Label htmlFor="option-three">Option three</Label>
 					<input
@@ -58,28 +62,10 @@ export default function SettingsContent() {
 						id="option-three"
 						value="option-three"
 						checked={selectedValue === 'option-three'}
-						onChange={() => setSelectedValue('option-three')}
+						onChange={() => handleOptionClick('option-three')}
 					/>
 				</Button>
 			</section>
 		</section>
 	)
 }
-
-// 	<RadioGroup
-// defaultValue={selectedValue}
-// onValueChange={(value) => console.log(value)}
-// >
-// <div>
-// 	<RadioGroupItem value="light-mode" id="light-mode" />
-// 	<Label htmlFor="light-mode">Light Mode</Label>
-// </div>
-// <div className="flex items-center space-x-2">
-// 	<RadioGroupItem value="dark-mode" id="dark-mode" />
-// 	<Label htmlFor="dark-mode">Dark Mode</Label>
-// </div>
-// <div className="flex items-center space-x-2">
-// 	<RadioGroupItem value="system" id="system" />
-// 	<Label htmlFor="system">System</Label>
-// </div>
-// </RadioGroup>
