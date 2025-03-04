@@ -5,7 +5,7 @@ import { useSettingsContext } from '@/lib/hooks'
 import ColorThemeOptions from './color-theme-options'
 
 export default function SettingsContent() {
-	const { selectedOption, handleChangeSelectedOption } = useSettingsContext()
+	const { selectedOption } = useSettingsContext()
 
 	switch (selectedOption) {
 		case 'color-theme':
