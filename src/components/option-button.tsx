@@ -28,6 +28,7 @@ const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
 					type="radio"
 					className="ml-auto"
 					checked={selected}
+					readOnly
 					aria-hidden="true"
 				/>
 			</Button>

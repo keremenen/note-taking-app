@@ -25,6 +25,7 @@ export default function SettingsContextProvider({
 		option: TSettingsContext['selectedOption']
 	) => {
 		setSelectedOption(option)
+		console.log(`Selected option: ${option}`)
 	}
 
 	return (
