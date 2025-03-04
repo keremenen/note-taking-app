@@ -3,6 +3,8 @@
 import { useSettingsContext } from '@/lib/hooks'
 
 import ColorThemeOptions from './color-theme-options'
+import FontThemeOptions from './font-theme'
+import ChangePasswordDetails from './change-password'
 
 export default function SettingsContent() {
 	const { selectedOption } = useSettingsContext()
@@ -11,10 +13,10 @@ export default function SettingsContent() {
 		case 'color-theme':
 			return <ColorThemeOptions />
 		case 'font-theme':
-			return <h1>Font Theme</h1>
+			return <FontThemeOptions />
 		case 'change-password':
-			return <h1>Change Password</h1>
+			return <ChangePasswordDetails />
 		default:
-			return <h1>Settings</h1>
+			return null
 	}
 }
