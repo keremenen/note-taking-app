@@ -22,7 +22,8 @@ type NoteFormProps = {
 }
 
 export default function NoteForm({ actionType }: NoteFormProps) {
-	const { selectedNote, handleEditSelectedNote } = useNoteContext()
+	const { selectedNote, handleEditSelectedNote, handleAddNote } =
+		useNoteContext()
 	const { register, reset, getValues } = useForm<TNoteForm>({
 		defaultValues: getFormDefaultValues(actionType, selectedNote),
 	})
@@ -34,9 +35,11 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 	return (
 		<form
 			action={async () => {
+				const noteData = getValues()
 				if (actionType === 'edit') {
-					const noteData = getValues()
 					handleEditSelectedNote(selectedNote!.id, noteData)
+				} else {
+					handleAddNote(noteData)
 				}
 			}}
 			className="flex flex-col min-h-full"

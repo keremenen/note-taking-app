@@ -4,6 +4,7 @@ import {
 	editNote,
 	archiveNote,
 	restoreNote,
+	addNote,
 } from '@/actions/actions'
 import { NoteEssetials } from '@/lib/types'
 import { getTags } from '@/lib/utils'
@@ -19,6 +20,7 @@ type TNoteContext = {
 	addNoteMode: boolean
 	tags: string[]
 	handleActiveAddNoteMode: () => void
+	handleAddNote: (noteData: Omit<NoteEssetials, 'updatedAt'>) => void
 	handleEditSelectedNote: (
 		id: Note['id'],
 		newNoteData: Omit<NoteEssetials, 'updatedAt'>
@@ -48,6 +50,11 @@ export default function NoteContextProvider({
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
 
 	// Handlers
+	const handleAddNote = async (noteData: NoteEssetials) => {
+		await addNote(noteData)
+		setAddNoteMode(false)
+	}
+
 	const handleArchiveSelectedNote = async (id: number) => {
 		await archiveNote(id)
 		setSelectedNoteId(null)
@@ -92,6 +99,7 @@ export default function NoteContextProvider({
 				selectedNote,
 				addNoteMode,
 				tags,
+				handleAddNote,
 				handleActiveAddNoteMode,
 				handleDeleteSelectedNote,
 				handleEditSelectedNote,

@@ -17,6 +17,13 @@ export async function editNote(
 	revalidatePath('/app', 'layout')
 }
 
+export async function addNote(noteData: NoteEssetials) {
+	await prisma.note.create({
+		data: noteData,
+	})
+	revalidatePath('/app', 'layout')
+}
+
 export async function deleteNote(noteId: number) {
 	await prisma.note.delete({
 		where: {
