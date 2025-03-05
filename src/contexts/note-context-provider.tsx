@@ -67,7 +67,7 @@ export default function NoteContextProvider({
 		id: number,
 		newNoteData: Omit<NoteEssetials, 'updatedAt'>
 	) => {
-		editNote(id, newNoteData)
+		await editNote(id, newNoteData)
 	}
 
 	const handleSetSelectedNoteId = (id: number) => {
