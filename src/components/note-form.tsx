@@ -46,6 +46,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				id="title"
 				{...register('title', { required: true })}
 				className="!text-2xl font-bold w-full bg-inherit outline-none rounded-sm border-none mb-4 px-0 focus:!ring-0 !ring-offset-0"
+				placeholder="Enter a title..."
 			/>
 
 			{/* Note details */}
@@ -76,6 +77,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 			<Textarea
 				id="content"
 				{...register('content', { required: true })}
+				placeholder="Start typing your note here…"
 				className="flex-1 mb-4"
 			/>
 

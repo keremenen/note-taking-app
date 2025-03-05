@@ -24,8 +24,8 @@ export function getFormDefaultValues(
 	tags?: string | undefined
 } {
 	return {
-		title: actionType === 'edit' ? selectedNote?.title : 'empty title',
-		content: actionType === 'edit' ? selectedNote?.content : 'empty content',
+		title: actionType === 'edit' ? selectedNote?.title : '',
+		content: actionType === 'edit' ? selectedNote?.content : '',
 		status: actionType === 'edit' ? selectedNote?.status : 'active',
 		tags: actionType === 'edit' ? selectedNote?.tags : '',
 	}
