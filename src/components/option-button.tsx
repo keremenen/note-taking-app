@@ -18,11 +18,13 @@ const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
 				aria-pressed={selected}
 				{...props}
 			>
-				<div className="size-10 rounded-md border-[1px] flex justify-center items-center border-[#E0E4EA] bg-white">
+				<div className="size-10 rounded-md border-[1px] flex justify-center items-center border-[#E0E4EA] bg-white ">
 					{icon}
 				</div>
 
-				<div className="flex flex-col text-left">{children}</div>
+				<div className="flex flex-col text-left pointer-events-none">
+					{children}
+				</div>
 
 				<input
 					type="radio"
