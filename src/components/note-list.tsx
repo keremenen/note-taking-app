@@ -54,14 +54,14 @@ export default function NotesList({ type }: NoteListProps) {
 				</Button>
 
 				{type === 'archive' ? (
-					<p className="text-sm text-[#6B7280] mb-4">
+					<NoteListAdditionalInfo>
 						All your archived notes are stored here. You can restore or delete
 						them anytime.
-					</p>
+					</NoteListAdditionalInfo>
 				) : selectedTag ? (
-					<p className="text-sm text-[#6B7280] mb-4">
+					<NoteListAdditionalInfo>
 						All notes with the {selectedTag} tag are shown here.
-					</p>
+					</NoteListAdditionalInfo>
 				) : null}
 
 				{filteredNotes.length === 0 && (
@@ -132,6 +132,14 @@ function EmptyListInfo({ children }: { children: React.ReactNode }) {
 	return (
 		<section className="bg-[#F3F5F8] border-[#E0E4EA] border-2 rounded-md p-2 tracking-tight">
 			{children}
+		</section>
+	)
+}
+
+function NoteListAdditionalInfo({ children }: { children: string | string[] }) {
+	return (
+		<section className="text-sm text-[#6B7280]">
+			<p>{children}</p>
 		</section>
 	)
 }
