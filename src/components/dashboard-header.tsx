@@ -6,12 +6,14 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function DashboardHeader() {
-	const pathName = usePathname()
-	const searchParams = useSearchParams()
-	const tag = searchParams.get('tag')
 	const { searchQuery, handleSetSetQuery } = useSearchContext()
 
 	const getHeaderTitle = () => {
+		const pathName = usePathname()
+		const searchParams = useSearchParams()
+		const tag = searchParams.get('tag')
+		const { searchQuery } = useSearchContext()
+
 		if (pathName.includes('archive')) return 'Archived Notes'
 		if (pathName.includes('settings')) return 'Settings'
 		if (tag)
