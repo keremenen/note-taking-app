@@ -83,6 +83,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				{...register('content', { required: true })}
 				placeholder="Start typing your note here…"
 				className="flex-1 mb-4"
+				spellCheck={false}
 			/>
 
 			{/* Note controls */}
