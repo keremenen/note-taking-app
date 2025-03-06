@@ -9,28 +9,34 @@ export default function DashboardHeader() {
 	const pathName = usePathname()
 	const searchParams = useSearchParams()
 	const tag = searchParams.get('tag')
-	const { handleSetSetQuery } = useSearchContext()
+	const { searchQuery, handleSetSetQuery } = useSearchContext()
+
+	const getHeaderTitle = () => {
+		if (pathName.includes('archive')) return 'Archived Notes'
+		if (pathName.includes('settings')) return 'Settings'
+		if (tag)
+			return (
+				<>
+					<span className="opacity-50">Notes tagged with</span> {tag}
+				</>
+			)
+		if (searchQuery)
+			return (
+				<>
+					<span className="opacity-50">Showing results for</span> {searchQuery}
+				</>
+			)
+		return 'All Notes'
+	}
 
 	return (
-		<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
-			{pathName.includes('archive') ? (
-				<HeaderHeading>Archived Notes</HeaderHeading>
-			) : pathName.includes('settings') ? (
-				<HeaderHeading>Settings</HeaderHeading>
-			) : tag ? (
-				<HeaderHeading>
-					<span className="opacity-50">Notes tagged with</span> {tag}
-				</HeaderHeading>
-			) : (
-				<HeaderHeading>All Notes</HeaderHeading>
-			)}
-
+		<header className="px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
+			<HeaderHeading>{getHeaderTitle()}</HeaderHeading>
 			<div className="ml-auto flex items-center gap-4">
 				<Input
 					placeholder="Search by title, content, or tags…"
-					onChange={(e) => {
-						handleSetSetQuery(e.target.value)
-					}}
+					onChange={(e) => handleSetSetQuery(e.target.value)}
+					value={searchQuery ? searchQuery : ''}
 					className="w-80"
 				/>
 				<Link href="/app/dashboard/settings">
