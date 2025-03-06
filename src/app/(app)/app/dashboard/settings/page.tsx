@@ -5,7 +5,7 @@ import SettingsOptions from '@/components/settings-options'
 export default function SettingsPage() {
 	return (
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
-			<DashboardHeader />
+			<DashboardHeader title="Settings" />
 			<section className="flex flex-row flex-1 overflow-auto">
 				<SettingsOptions />
 				<SettingsContent />

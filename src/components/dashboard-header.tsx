@@ -3,42 +3,34 @@ import { useSearchContext } from '@/lib/hooks'
 import { Input } from './ui/input'
 import { Settings } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { getSearchParams } from '@/lib/utils'
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ title }: { title: string }) {
 	const { searchQuery, handleSetSetQuery } = useSearchContext()
-
-	const getHeaderTitle = () => {
-		const pathName = usePathname()
-		const searchParams = useSearchParams()
-		const tag = searchParams.get('tag')
-		const { searchQuery } = useSearchContext()
-
-		if (pathName.includes('archive')) return 'Archived Notes'
-		if (pathName.includes('settings')) return 'Settings'
-		if (tag)
-			return (
-				<>
-					<span className="opacity-50">Notes tagged with</span> {tag}
-				</>
-			)
-		if (searchQuery)
-			return (
-				<>
-					<span className="opacity-50">Showing results for</span> {searchQuery}
-				</>
-			)
-		return 'All Notes'
-	}
+	const tag = getSearchParams('tag')
 
 	return (
 		<header className="px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
-			<HeaderHeading>{getHeaderTitle()}</HeaderHeading>
+			<HeaderHeading>
+				{searchQuery ? (
+					<>
+						<span className="opacity-50">Showing search results for: </span>
+						{searchQuery}
+					</>
+				) : tag ? (
+					<>
+						<span className="opacity-50">Notes tagged: </span>
+						{tag}
+					</>
+				) : (
+					title
+				)}
+			</HeaderHeading>
 			<div className="ml-auto flex items-center gap-4">
 				<Input
 					placeholder="Search by title, content, or tags…"
 					onChange={(e) => handleSetSetQuery(e.target.value)}
-					value={searchQuery ? searchQuery : ''}
+					value={searchQuery || ''}
 					className="w-80"
 				/>
 				<Link href="/app/dashboard/settings">
@@ -50,5 +42,5 @@ export default function DashboardHeader() {
 }
 
 function HeaderHeading({ children }: { children: React.ReactNode }) {
-	return <h1 className="font-bold text-2xl ">{children}</h1>
+	return <h1 className="font-bold text-2xl">{children}</h1>
 }
