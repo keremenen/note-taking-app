@@ -1,7 +1,7 @@
 import { AppSidebar } from '@/components/app-sidebar'
-
 import { SidebarProvider } from '@/components/ui/sidebar'
 import NoteContextProvider from '@/contexts/note-context-provider'
+import SearchContextProvider from '@/contexts/search-context-provider'
 import SettingsContextProvider from '@/contexts/settings-context-provider'
 import prisma from '@/lib/db'
 
@@ -14,15 +14,17 @@ export default async function AppLayout({
 
 	return (
 		<>
-			<NoteContextProvider data={data}>
-				<SettingsContextProvider>
-					<SidebarProvider>
-						<AppSidebar />
+			<SearchContextProvider>
+				<NoteContextProvider data={data}>
+					<SettingsContextProvider>
+						<SidebarProvider>
+							<AppSidebar />
 
-						{children}
-					</SidebarProvider>
-				</SettingsContextProvider>
-			</NoteContextProvider>
+							{children}
+						</SidebarProvider>
+					</SettingsContextProvider>
+				</NoteContextProvider>
+			</SearchContextProvider>
 		</>
 	)
 }

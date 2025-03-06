@@ -1,6 +1,6 @@
 'use client'
 
-import { useNoteContext } from '@/lib/hooks'
+import { useNoteContext, useSearchContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Note } from '@prisma/client'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -16,6 +16,7 @@ export default function NotesList({ type }: NoteListProps) {
 	const pathname = usePathname()
 	const isArchive = pathname.includes('archive')
 
+	const { searchQuery } = useSearchContext()
 	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
 		useNoteContext()
 
@@ -25,6 +26,16 @@ export default function NotesList({ type }: NoteListProps) {
 		currentNotes = notes.filter((note) => note.status === 'archived')
 	} else {
 		currentNotes = notes.filter((note) => note.status === 'active')
+	}
+
+	if (searchQuery) {
+		currentNotes = currentNotes.filter(
+			(note) =>
+				// If note title, content or tag includes the search query
+				note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				note.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				note.tags.toLowerCase().includes(searchQuery.toLowerCase())
+		)
 	}
 
 	if (tag) {

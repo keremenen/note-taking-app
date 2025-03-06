@@ -1,4 +1,5 @@
 'use client'
+import { useSearchContext } from '@/lib/hooks'
 import { Input } from './ui/input'
 import { Settings } from 'lucide-react'
 import Link from 'next/link'
@@ -8,6 +9,7 @@ export default function DashboardHeader() {
 	const pathName = usePathname()
 	const searchParams = useSearchParams()
 	const tag = searchParams.get('tag')
+	const { handleSetSetQuery } = useSearchContext()
 
 	return (
 		<header className=" px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
@@ -26,6 +28,9 @@ export default function DashboardHeader() {
 			<div className="ml-auto flex items-center gap-4">
 				<Input
 					placeholder="Search by title, content, or tags…"
+					onChange={(e) => {
+						handleSetSetQuery(e.target.value)
+					}}
 					className="w-80"
 				/>
 				<Link href="/app/dashboard/settings">
