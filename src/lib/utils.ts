@@ -1,5 +1,6 @@
 import { Note } from '@prisma/client'
 import { clsx, type ClassValue } from 'clsx'
+import { useSearchParams } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -37,4 +38,10 @@ export function getReadableDate(date: Date) {
 		month: 'short',
 		year: 'numeric',
 	})
+}
+
+export function getSearchParams(searchParam: string) {
+	const searchParams = useSearchParams()
+	const params = searchParams.get(searchParam)
+	return params
 }

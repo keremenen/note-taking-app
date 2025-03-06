@@ -3,33 +3,34 @@
 import { useNoteContext, useSearchContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Note } from '@prisma/client'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { getSearchParams } from '@/lib/utils'
 
 type NoteListProps = {
 	type?: 'archive' | 'active'
 }
 
 export default function NotesList({ type }: NoteListProps) {
-	const searchParams = useSearchParams()
-	const tag = searchParams.get('tag')
-
-	const pathname = usePathname()
-	const isArchive = pathname.includes('archive')
-
 	const { searchQuery } = useSearchContext()
 	const { notes, handleSetSelectedNoteId, handleActiveAddNoteMode } =
 		useNoteContext()
 
-	let currentNotes: Note[] = []
+	const selectedTag = getSearchParams('tag')
 
-	if (isArchive) {
-		currentNotes = notes.filter((note) => note.status === 'archived')
-	} else {
-		currentNotes = notes.filter((note) => note.status === 'active')
+	let filteredNotes: Note[] = []
+
+	// Filter notes based on type
+	switch (type) {
+		case 'archive':
+			filteredNotes = notes.filter((note) => note.status === 'archived')
+			break
+		default:
+			filteredNotes = notes.filter((note) => note.status === 'active')
+			break
 	}
 
+	// Filter notes based on search query
 	if (searchQuery) {
-		currentNotes = currentNotes.filter(
+		filteredNotes = filteredNotes.filter(
 			(note) =>
 				// If note title, content or tag includes the search query
 				note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -38,9 +39,10 @@ export default function NotesList({ type }: NoteListProps) {
 		)
 	}
 
-	if (tag) {
-		currentNotes = currentNotes.filter((note) =>
-			note.tags.toLowerCase().includes(tag.toLowerCase())
+	// Filter notes based on selected tag
+	if (selectedTag) {
+		filteredNotes = filteredNotes.filter((note) =>
+			note.tags.toLowerCase().includes(selectedTag.toLowerCase())
 		)
 	}
 
@@ -50,37 +52,45 @@ export default function NotesList({ type }: NoteListProps) {
 				<Button className="w-full mb-4 " onClick={handleActiveAddNoteMode}>
 					Create new note
 				</Button>
-				{isArchive && (
+
+				{type === 'archive' ? (
 					<p className="text-sm text-[#6B7280] mb-4">
 						All your archived notes are stored here. You can restore or delete
 						them anytime.
 					</p>
-				)}
-				{tag && (
-					<p className="text-sm text-[#6B7280] mb-4">{`All notes with the ${tag} tag are shown here.`}</p>
-				)}
-
-				{currentNotes.length === 0 && type === 'archive' ? (
-					<EmptyListInfo>
-						<p>
-							No notes have been archived yet. Move notes here for safekeeping,
-							or
-							<span className="underline">{` `}create a new note</span>.
-						</p>
-					</EmptyListInfo>
-				) : currentNotes.length === 0 ? (
-					<EmptyListInfo>
-						<p>
-							You don’t have any notes yet. Start a new note to capture your
-							thoughts and ideas.
-						</p>
-					</EmptyListInfo>
+				) : selectedTag ? (
+					<p className="text-sm text-[#6B7280] mb-4">
+						All notes with the {selectedTag} tag are shown here.
+					</p>
 				) : null}
+
+				{filteredNotes.length === 0 && (
+					<EmptyListInfo>
+						{searchQuery ? (
+							<p>
+								No notes match your search. Try a different keyword or create a
+								new note.
+							</p>
+						) : type === 'active' ? (
+							<p>
+								You don’t have any notes yet. Start a new note to capture your
+								thoughts and ideas.
+							</p>
+						) : type === 'archive' ? (
+							<p>
+								No notes have been archived yet. Move notes here for
+								safekeeping, or{' '}
+								<span className="underline">create a new note</span>.
+							</p>
+						) : null}
+					</EmptyListInfo>
+				)}
 			</div>
-			{currentNotes.length === 0 ? null : (
+
+			{filteredNotes.length === 0 ? null : (
 				<section>
 					<ul className="space-y-2">
-						{currentNotes.map((note) => (
+						{filteredNotes.map((note) => (
 							<li
 								className=" hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer transition duration-300"
 								key={Math.random()}

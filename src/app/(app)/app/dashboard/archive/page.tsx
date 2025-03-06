@@ -8,7 +8,7 @@ export default function ArchivedNotesPage() {
 		<main className="min-h-screen flex flex-col max-h-screen w-full">
 			<DashboardHeader />
 			<section className="flex flex-row flex-1 overflow-auto">
-				<NotesList />
+				<NotesList type="archive" />
 				<NoteDetails />
 				<NoteOptions />
 			</section>
