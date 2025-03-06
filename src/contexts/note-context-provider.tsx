@@ -48,9 +48,10 @@ export default function NoteContextProvider({
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
+	const activeNotes = notes.filter((note) => note.status === 'active')
 
 	// Handlers
-	const handleAddNote = async (noteData: NoteEssetials) => {
+	const handleAddNote = async (noteData: Omit<NoteEssetials, 'updatedAt'>) => {
 		await addNote(noteData)
 		setAddNoteMode(false)
 	}
@@ -88,7 +89,7 @@ export default function NoteContextProvider({
 	}
 
 	useEffect(() => {
-		setTags(getTags(notes))
+		setTags(getTags(activeNotes))
 	}, [notes])
 
 	return (

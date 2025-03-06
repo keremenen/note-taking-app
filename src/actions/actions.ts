@@ -17,7 +17,7 @@ export async function editNote(
 	revalidatePath('/app', 'layout')
 }
 
-export async function addNote(noteData: NoteEssetials) {
+export async function addNote(noteData: Omit<NoteEssetials, 'updatedAt'>) {
 	await prisma.note.create({
 		data: noteData,
 	})
