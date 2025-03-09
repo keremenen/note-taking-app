@@ -18,7 +18,13 @@ type NoteFormProps = {
 export default function NoteForm({ actionType }: NoteFormProps) {
 	const { selectedNote, handleEditSelectedNote, handleAddNote } =
 		useNoteContext()
-	const { register, reset, getValues, trigger } = useForm<TNoteForm>({
+	const {
+		register,
+		reset,
+		getValues,
+		trigger,
+		formState: { errors },
+	} = useForm<TNoteForm>({
 		resolver: zodResolver(noteFormSchema),
 		defaultValues: getFormDefaultValues(actionType, selectedNote),
 	})
@@ -27,18 +33,23 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 		reset(getFormDefaultValues(actionType, selectedNote))
 	}, [actionType, selectedNote, reset])
 
+	const handleSubmit = async () => {
+		const result = await trigger()
+		if (!result) return
+
+		const noteData = getValues()
+		if (actionType === 'edit') {
+			handleEditSelectedNote(selectedNote!.id, noteData)
+		} else {
+			handleAddNote(noteData)
+		}
+	}
+
 	return (
 		<form
-			action={async () => {
-				const result = await trigger()
-				if (!result) return
-
-				const noteData = getValues()
-				if (actionType === 'edit') {
-					handleEditSelectedNote(selectedNote!.id, noteData)
-				} else {
-					handleAddNote(noteData)
-				}
+			onSubmit={(e) => {
+				e.preventDefault()
+				handleSubmit()
 			}}
 			className="flex flex-col min-h-full"
 		>
@@ -50,6 +61,9 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				placeholder="Enter a title..."
 				autoFocus
 			/>
+			{errors.title && (
+				<span className="text-red-500">{errors.title.message}</span>
+			)}
 
 			{/* Note details */}
 			<section className="text-sm">
@@ -63,6 +77,9 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 						placeholder="Add tags separated by commas (e.g. Work, Planning)"
 					/>
 				</NoteDetailsRowWrapper>
+				{errors.tags && (
+					<span className="text-red-500">{errors.tags.message}</span>
+				)}
 
 				<NoteDetailsRowWrapper icon={<Clock size={16} />} label="Last edited:">
 					{actionType && selectedNote ? (
