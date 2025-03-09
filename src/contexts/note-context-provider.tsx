@@ -42,7 +42,7 @@ export default function NoteContextProvider({
 	children,
 }: NoteContextProviderProps) {
 	// State
-	const [selectedNoteId, setSelectedNoteId] = useState<number | null>(1)
+	const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null)
 	const [addNoteMode, setAddNoteMode] = useState(false)
 	const [tags, setTags] = useState<string[]>(getTags(notes))
 
@@ -51,39 +51,43 @@ export default function NoteContextProvider({
 	const activeNotes = notes.filter((note) => note.status === 'active')
 
 	// Handlers
-	const handleAddNote = async (noteData: Omit<NoteEssetials, 'updatedAt'>) => {
+	const handleAddNote = async (noteData: NoteEssetials) => {
 		const error = await addNote(noteData)
 
 		if (error) {
-			console.error(error.message)
+			console.log(error.message)
 		}
 
 		setAddNoteMode(false)
 	}
 
-	const handleArchiveSelectedNote = async (id: number) => {
+	const handleEditSelectedNote = async (
+		id: string,
+		newNoteData: NoteEssetials
+	) => {
+		const error = await editNote(id, newNoteData)
+
+		if (error) {
+			console.log(error.error)
+		}
+	}
+
+	const handleArchiveSelectedNote = async (id: string) => {
 		await archiveNote(id)
 		setSelectedNoteId(null)
 	}
 
-	const handleDeleteSelectedNote = async (id: number) => {
+	const handleDeleteSelectedNote = async (id: string) => {
 		await deleteNote(id)
 		setSelectedNoteId(null)
 	}
 
-	const handleRestoreSelectedNote = async (id: number) => {
+	const handleRestoreSelectedNote = async (id: string) => {
 		await restoreNote(id)
 		setSelectedNoteId(null)
 	}
 
-	const handleEditSelectedNote = async (
-		id: number,
-		newNoteData: Omit<NoteEssetials, 'updatedAt'>
-	) => {
-		await editNote(id, newNoteData)
-	}
-
-	const handleSetSelectedNoteId = (id: number) => {
+	const handleSetSelectedNoteId = (id: string) => {
 		setSelectedNoteId(id)
 		setAddNoteMode(false)
 	}

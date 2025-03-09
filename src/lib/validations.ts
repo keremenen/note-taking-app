@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+export const noteIdSchema = z.string().cuid()
+
 export const noteFormSchema = z.object({
 	title: z
 		.string({ message: 'Title should be a string' })

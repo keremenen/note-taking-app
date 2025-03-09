@@ -3,7 +3,7 @@
 
 // This is your Prisma schema file,
 model Note {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   title     String
   content   String
   status    String
