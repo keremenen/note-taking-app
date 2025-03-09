@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/db'
 import { NoteEssetials } from '@/lib/types'
+import { noteFormSchema } from '@/lib/validations'
 import { revalidatePath } from 'next/cache'
 
 export async function editNote(
@@ -17,10 +18,26 @@ export async function editNote(
 	revalidatePath('/app', 'layout')
 }
 
-export async function addNote(noteData: Omit<NoteEssetials, 'updatedAt'>) {
-	await prisma.note.create({
-		data: noteData,
-	})
+export async function addNote(noteData: unknown) {
+	// Validate the data
+	const validatedData = noteFormSchema.safeParse(noteData)
+	if (!validatedData.success) {
+		return { message: 'Invalid data' }
+	}
+
+	// Add the note
+	try {
+		await prisma.note.create({
+			data: {
+				status: 'active',
+				...validatedData.data,
+			},
+		})
+	} catch (error) {
+		return { message: 'Failed to add note', error }
+	}
+
+	// Revalidate the cache
 	revalidatePath('/app', 'layout')
 }
 

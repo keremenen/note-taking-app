@@ -13,7 +13,6 @@ export const noteFormSchema = z.object({
 		.string()
 		.nonempty({ message: 'You should type at least one tag' })
 		.trim(),
-	status: z.string(),
 })
 
 export type TNoteForm = z.infer<typeof noteFormSchema>

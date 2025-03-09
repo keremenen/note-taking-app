@@ -52,7 +52,12 @@ export default function NoteContextProvider({
 
 	// Handlers
 	const handleAddNote = async (noteData: Omit<NoteEssetials, 'updatedAt'>) => {
-		await addNote(noteData)
+		const error = await addNote(noteData)
+
+		if (error) {
+			console.error(error.message)
+		}
+
 		setAddNoteMode(false)
 	}
 
