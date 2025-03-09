@@ -73,17 +73,32 @@ export default function NoteContextProvider({
 	}
 
 	const handleArchiveSelectedNote = async (id: string) => {
-		await archiveNote(id)
+		const error = await archiveNote(id)
+
+		if (error) {
+			console.log(error.error)
+		}
+
 		setSelectedNoteId(null)
 	}
 
 	const handleDeleteSelectedNote = async (id: string) => {
-		await deleteNote(id)
+		const error = await deleteNote(id)
+
+		if (error) {
+			console.log(error.error)
+		}
+
 		setSelectedNoteId(null)
 	}
 
 	const handleRestoreSelectedNote = async (id: string) => {
-		await restoreNote(id)
+		const error = await restoreNote(id)
+
+		if (error) {
+			console.log(error.error)
+		}
+
 		setSelectedNoteId(null)
 	}
 

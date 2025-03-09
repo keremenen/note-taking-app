@@ -53,35 +53,77 @@ export async function addNote(noteData: unknown) {
 	revalidatePath('/app', 'layout')
 }
 
-export async function deleteNote(noteId: string) {
-	await prisma.note.delete({
-		where: {
-			id: noteId,
-		},
-	})
+export async function deleteNote(noteId: unknown) {
+	// Validate the data
+	const validatedNoteId = noteIdSchema.safeParse(noteId)
+
+	if (!validatedNoteId.success) {
+		return { message: 'Invalid data' }
+	}
+
+	// Delete the note
+	try {
+		await prisma.note.delete({
+			where: {
+				id: validatedNoteId.data,
+			},
+		})
+	} catch (error) {
+		return { message: 'Failed to add note', error }
+	}
+
+	// Revalidate the cache
 	revalidatePath('/app', 'layout')
 }
 
-export async function archiveNote(noteId: string) {
-	await prisma.note.update({
-		where: {
-			id: noteId,
-		},
-		data: {
-			status: 'archived',
-		},
-	})
+export async function archiveNote(noteId: unknown) {
+	// Validate the data
+	const validatedNoteId = noteIdSchema.safeParse(noteId)
+
+	if (!validatedNoteId.success) {
+		return { message: 'Invalid data' }
+	}
+
+	// Archive the note
+	try {
+		await prisma.note.update({
+			where: {
+				id: validatedNoteId.data,
+			},
+			data: {
+				status: 'archived',
+			},
+		})
+	} catch (error) {
+		return { message: 'Failed to archive note', error }
+	}
+
+	// Revalidate the cache
 	revalidatePath('/app', 'layout')
 }
 
-export async function restoreNote(noteId: string) {
-	await prisma.note.update({
-		where: {
-			id: noteId,
-		},
-		data: {
-			status: 'active',
-		},
-	})
+export async function restoreNote(noteId: unknown) {
+	// Validate the data
+	const validatedNoteId = noteIdSchema.safeParse(noteId)
+
+	if (!validatedNoteId.success) {
+		return { message: 'Invalid data' }
+	}
+
+	// Restore the note
+	try {
+		await prisma.note.update({
+			where: {
+				id: validatedNoteId.data,
+			},
+			data: {
+				status: 'active',
+			},
+		})
+	} catch (error) {
+		return { message: 'Failed to restore note', error }
+	}
+
+	// Revalidate the cache
 	revalidatePath('/app', 'layout')
 }
