@@ -7,7 +7,7 @@ import {
 	addNote,
 } from '@/actions/actions'
 import { NoteEssetials } from '@/lib/types'
-import { getTags } from '@/lib/utils'
+import { getTagsArrayFromNotes } from '@/lib/utils'
 import { Note } from '@prisma/client'
 import { createContext, useEffect, useState } from 'react'
 
@@ -44,11 +44,12 @@ export default function NoteContextProvider({
 	// State
 	const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null)
 	const [addNoteMode, setAddNoteMode] = useState(false)
-	const [tags, setTags] = useState<string[]>(getTags(notes))
+	const [tags, setTags] = useState<string[]>(
+		getTagsArrayFromNotes(notes.filter((note) => note.status === 'active'))
+	)
 
 	// Derived state
 	const selectedNote = notes.find((note) => note.id === selectedNoteId)
-	const activeNotes = notes.filter((note) => note.status === 'active')
 
 	// Handlers
 	const handleAddNote = async (noteData: NoteEssetials) => {
@@ -112,8 +113,18 @@ export default function NoteContextProvider({
 		setAddNoteMode(true)
 	}
 
+	const handleRecreateTags = (notes: Note[]) => {
+		const tagsSet = new Set<string>()
+
+		notes.forEach((note) => {
+			note.tags.split(',').forEach((tag) => tagsSet.add(tag.trim()))
+		})
+
+		setTags(Array.from(tagsSet))
+	}
+
 	useEffect(() => {
-		setTags(getTags(activeNotes))
+		handleRecreateTags(notes.filter((note) => note.status === 'active'))
 	}, [notes])
 
 	return (

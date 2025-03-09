@@ -35,3 +35,11 @@ export function getReadableDate(date: Date) {
 		year: 'numeric',
 	})
 }
+
+export function getTagsArrayFromNotes(notes: Note[]) {
+	const tagsSet = new Set<string>()
+	notes.forEach((note) => {
+		note.tags.split(',').forEach((tag) => tagsSet.add(tag.trim()))
+	})
+	return Array.from(tagsSet)
+}
