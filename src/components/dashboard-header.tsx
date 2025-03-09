@@ -3,11 +3,13 @@ import { useSearchContext } from '@/lib/hooks'
 import { Input } from './ui/input'
 import { Settings } from 'lucide-react'
 import Link from 'next/link'
-import { getSearchParams } from '@/lib/utils'
+import { useSearchParams } from 'next/navigation'
 
 export default function DashboardHeader({ title }: { title: string }) {
 	const { searchQuery, handleSetSetQuery } = useSearchContext()
-	const tag = getSearchParams('tag')
+
+	const searchParams = useSearchParams()
+	const tag = searchParams.get('tag')
 
 	return (
 		<header className="px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">

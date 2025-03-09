@@ -10,4 +10,7 @@ export const noteFormSchema = z.object({
 		.string()
 		.max(1000, { message: 'Content should be less than 1000 characters' }),
 	tags: z.string().nonempty().trim(),
+	status: z.string(),
 })
+
+export type TNoteForm = z.infer<typeof noteFormSchema>

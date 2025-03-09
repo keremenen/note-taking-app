@@ -1,7 +1,8 @@
 import { Note } from '@prisma/client'
 import { clsx, type ClassValue } from 'clsx'
-import { useSearchParams } from 'next/navigation'
+
 import { twMerge } from 'tailwind-merge'
+import { NoteEssetials } from './types'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -18,17 +19,12 @@ export function getTags(notes: Note[]) {
 export function getFormDefaultValues(
 	actionType: 'add' | 'edit',
 	selectedNote: Note | undefined
-): {
-	title?: string | undefined
-	content?: string | undefined
-	status?: string | undefined
-	tags?: string | undefined
-} {
+): NoteEssetials {
 	return {
-		title: actionType === 'edit' ? selectedNote?.title : '',
-		content: actionType === 'edit' ? selectedNote?.content : '',
-		status: actionType === 'edit' ? selectedNote?.status : 'active',
-		tags: actionType === 'edit' ? selectedNote?.tags : '',
+		title: actionType === 'edit' ? selectedNote?.title ?? '' : '',
+		content: actionType === 'edit' ? selectedNote?.content ?? '' : '',
+		status: actionType === 'edit' ? selectedNote?.status ?? '' : 'active',
+		tags: actionType === 'edit' ? selectedNote?.tags ?? '' : '',
 	}
 }
 
@@ -38,10 +34,4 @@ export function getReadableDate(date: Date) {
 		month: 'short',
 		year: 'numeric',
 	})
-}
-
-export function getSearchParams(searchParam: string) {
-	const searchParams = useSearchParams()
-	const params = searchParams.get(searchParam)
-	return params
 }

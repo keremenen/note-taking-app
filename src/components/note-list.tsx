@@ -3,7 +3,7 @@
 import { useNoteContext, useSearchContext } from '@/lib/hooks'
 import { Button } from './ui/button'
 import { Note } from '@prisma/client'
-import { getSearchParams } from '@/lib/utils'
+import { useSearchParams } from 'next/navigation'
 
 type NoteListProps = {
 	type?: 'archive' | 'active'
@@ -13,7 +13,8 @@ export default function NotesList({ type }: NoteListProps) {
 	const { searchQuery } = useSearchContext()
 	const { notes, handleActiveAddNoteMode } = useNoteContext()
 
-	const selectedTag = getSearchParams('tag')
+	const searchParams = useSearchParams()
+	const selectedTag = searchParams.get('tag')
 
 	let filteredNotes: Note[] = []
 

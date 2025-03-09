@@ -8,14 +8,8 @@ import { useEffect } from 'react'
 import { getFormDefaultValues, getReadableDate } from '@/lib/utils'
 import { Clock, Tag } from 'lucide-react'
 import { Button } from './ui/button'
-
-type TNoteForm = {
-	title: string
-	content: string
-	status: string
-
-	tags: string
-}
+import { noteFormSchema, TNoteForm } from '@/lib/validations'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type NoteFormProps = {
 	actionType: 'add' | 'edit'
@@ -25,6 +19,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 	const { selectedNote, handleEditSelectedNote, handleAddNote } =
 		useNoteContext()
 	const { register, reset, getValues } = useForm<TNoteForm>({
+		resolver: zodResolver(noteFormSchema),
 		defaultValues: getFormDefaultValues(actionType, selectedNote),
 	})
 

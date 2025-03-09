@@ -20,7 +20,7 @@ type TNoteContext = {
 	addNoteMode: boolean
 	tags: string[]
 	handleActiveAddNoteMode: () => void
-	handleAddNote: (noteData: Omit<NoteEssetials, 'updatedAt'>) => void
+	handleAddNote: (noteData: NoteEssetials) => void
 	handleEditSelectedNote: (
 		id: Note['id'],
 		newNoteData: Omit<NoteEssetials, 'updatedAt'>
