@@ -18,7 +18,7 @@ type NoteFormProps = {
 export default function NoteForm({ actionType }: NoteFormProps) {
 	const { selectedNote, handleEditSelectedNote, handleAddNote } =
 		useNoteContext()
-	const { register, reset, getValues } = useForm<TNoteForm>({
+	const { register, reset, getValues, trigger } = useForm<TNoteForm>({
 		resolver: zodResolver(noteFormSchema),
 		defaultValues: getFormDefaultValues(actionType, selectedNote),
 	})
@@ -30,6 +30,9 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 	return (
 		<form
 			action={async () => {
+				const result = await trigger()
+				if (!result) return
+
 				const noteData = getValues()
 				if (actionType === 'edit') {
 					handleEditSelectedNote(selectedNote!.id, noteData)
