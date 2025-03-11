@@ -4,6 +4,7 @@ import prisma from '@/lib/db'
 import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import bcrypt from 'bcryptjs'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
@@ -159,7 +160,7 @@ export async function signUp(prevState: unknown, formData: unknown) {
 		await prisma.user.create({
 			data: {
 				email,
-				hashedPassword: password,
+				hashedPassword: await bcrypt.hash(password, 10),
 			},
 		})
 	} catch (error) {
