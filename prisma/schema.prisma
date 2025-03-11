@@ -12,6 +12,14 @@ model Note {
   updatedAt DateTime @updatedAt
 }
 
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  hashedPassword String
+  updatedAt      DateTime @updatedAt
+  createdAt      DateTime @default(now())
+}
+
 generator client {
   provider = "prisma-client-js"
 }
