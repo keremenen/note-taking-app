@@ -18,3 +18,12 @@ export const noteFormSchema = z.object({
 })
 
 export type TNoteForm = z.infer<typeof noteFormSchema>
+
+export const authFormSchema = z.object({
+	email: z.string().email({ message: 'Invalid email' }),
+	password: z
+		.string()
+		.min(8, { message: 'Password should be at least 8 characters' }),
+})
+
+export type TAuthForm = z.infer<typeof authFormSchema>

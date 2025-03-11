@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/db'
-import { noteFormSchema, noteIdSchema } from '@/lib/validations'
+import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { revalidatePath } from 'next/cache'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
@@ -126,4 +126,39 @@ export async function restoreNote(noteId: unknown) {
 
 	// Revalidate the cache
 	revalidatePath('/app', 'layout')
+}
+
+export async function signUp(prevState: unknown, formData: unknown) {
+	if (!(formData instanceof FormData)) {
+		return { message: 'Invalid data' }
+	}
+
+	const formDataEntries = Object.fromEntries(formData.entries())
+	const validatedFormData = authFormSchema.safeParse(formDataEntries)
+
+	if (!validatedFormData.success) {
+		return { message: 'Invalid credentials' }
+	}
+
+	const { email, password } = validatedFormData.data
+
+	try {
+		await prisma.user.create({
+			data: {
+				email,
+				hashedPassword: password,
+			},
+		})
+	} catch (error) {
+		console.log(error)
+		return { message: 'Failed to sign up', error }
+	}
+}
+
+export async function logIn(prevState: unknown, formData: unknown) {
+	{
+		if (!(formData instanceof FormData)) {
+			return { message: 'Invalid data' }
+		}
+	}
 }
