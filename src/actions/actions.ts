@@ -5,6 +5,9 @@ import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
+import { signIn } from '@/lib/auth'
+import { redirect } from 'next/navigation'
+import { AuthError } from 'next-auth'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
@@ -179,5 +182,21 @@ export async function logIn(prevState: unknown, formData: unknown) {
 
 	if (!(formData instanceof FormData)) {
 		return { message: 'Invalid data' }
+	}
+
+	try {
+		await signIn('credentials', formData)
+	} catch (error) {
+		if (error instanceof AuthError) {
+			switch (error.type) {
+				case 'CredentialsSignin':
+					return { message: 'Invalid credentials' }
+
+				default:
+					return { message: 'Sign in error' }
+			}
+		}
+
+		throw error
 	}
 }
