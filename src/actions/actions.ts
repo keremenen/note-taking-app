@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/db'
 import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
+import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
@@ -46,7 +47,11 @@ export async function addNote(noteData: unknown) {
 			},
 		})
 	} catch (error) {
-		return { message: 'Failed to add note', error }
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			if (error.code === 'P2002') {
+				return { message: 'Email already exists' }
+			}
+		}
 	}
 
 	// Revalidate the cache
@@ -128,7 +133,12 @@ export async function restoreNote(noteId: unknown) {
 	revalidatePath('/app', 'layout')
 }
 
+// AUTH ACTIONS
+
 export async function signUp(prevState: unknown, formData: unknown) {
+	// simulate 2 seconds of loading
+	await new Promise((resolve) => setTimeout(resolve, 2000))
+
 	if (!(formData instanceof FormData)) {
 		return { message: 'Invalid data' }
 	}
@@ -137,7 +147,10 @@ export async function signUp(prevState: unknown, formData: unknown) {
 	const validatedFormData = authFormSchema.safeParse(formDataEntries)
 
 	if (!validatedFormData.success) {
-		return { message: 'Invalid credentials' }
+		return {
+			message: 'Invalid credentials',
+			payload: { email: formData.get('email') },
+		}
 	}
 
 	const { email, password } = validatedFormData.data
@@ -150,15 +163,20 @@ export async function signUp(prevState: unknown, formData: unknown) {
 			},
 		})
 	} catch (error) {
-		console.log(error)
-		return { message: 'Failed to sign up', error }
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			if (error.code === 'P2002') {
+				return { message: 'Email already exists' }
+			}
+		}
+		return { message: 'Failed to create user' }
 	}
 }
 
 export async function logIn(prevState: unknown, formData: unknown) {
-	{
-		if (!(formData instanceof FormData)) {
-			return { message: 'Invalid data' }
-		}
+	// simulate 2 seconds of loading
+	await new Promise((resolve) => setTimeout(resolve, 2000))
+
+	if (!(formData instanceof FormData)) {
+		return { message: 'Invalid data' }
 	}
 }
