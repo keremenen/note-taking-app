@@ -23,7 +23,7 @@ export function getFormDefaultValues(
 	return {
 		title: actionType === 'edit' ? selectedNote?.title ?? '' : '',
 		content: actionType === 'edit' ? selectedNote?.content ?? '' : '',
-		status: actionType === 'edit' ? selectedNote?.status ?? '' : 'active',
+
 		tags: actionType === 'edit' ? selectedNote?.tags ?? '' : '',
 	}
 }
