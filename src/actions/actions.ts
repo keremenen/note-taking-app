@@ -5,8 +5,7 @@ import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
-import { signIn } from '@/lib/auth'
-import { redirect } from 'next/navigation'
+import { signIn, signOut } from '@/lib/auth'
 import { AuthError } from 'next-auth'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
@@ -199,4 +198,8 @@ export async function logIn(prevState: unknown, formData: unknown) {
 
 		throw error
 	}
+}
+
+export async function logOut() {
+	await signOut({ redirectTo: '/' })
 }

@@ -5,6 +5,7 @@ import { Separator } from './ui/separator'
 import { useSettingsContext } from '@/lib/hooks'
 import { JSX } from 'react'
 import { AvailableSettings } from '@/lib/types'
+import { logOut } from '@/actions/actions'
 
 type SettingsOption = {
 	label: string
@@ -47,7 +48,7 @@ export default function SettingsOptions() {
 				</Button>
 			))}
 			<Separator className="my-2" />
-			<Button className="justify-start" variant={'outline'}>
+			<Button className="justify-start" variant={'outline'} onClick={logOut}>
 				<DoorOpen />
 				Log Out
 			</Button>
