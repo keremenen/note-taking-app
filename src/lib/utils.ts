@@ -16,18 +16,6 @@ export function getTags(notes: Note[]) {
 	return Array.from(tagsSet)
 }
 
-export function getFormDefaultValues(
-	actionType: 'add' | 'edit',
-	selectedNote: Note | undefined
-): NoteEssetials {
-	return {
-		title: actionType === 'edit' ? selectedNote?.title ?? '' : '',
-		content: actionType === 'edit' ? selectedNote?.content ?? '' : '',
-
-		tags: actionType === 'edit' ? selectedNote?.tags ?? '' : '',
-	}
-}
-
 export function getReadableDate(date: Date) {
 	return new Date(date).toLocaleDateString('en-GB', {
 		day: 'numeric',

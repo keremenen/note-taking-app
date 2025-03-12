@@ -5,7 +5,7 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
-import { getFormDefaultValues, getReadableDate } from '@/lib/utils'
+import { getReadableDate } from '@/lib/utils'
 import { Clock, Tag } from 'lucide-react'
 import { Button } from './ui/button'
 import { noteFormSchema, TNoteForm } from '@/lib/validations'
@@ -26,30 +26,40 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 		formState: { errors },
 	} = useForm<TNoteForm>({
 		resolver: zodResolver(noteFormSchema),
-		defaultValues: getFormDefaultValues(actionType, selectedNote),
+		defaultValues: {
+			title: actionType === 'edit' ? selectedNote?.title : '',
+		},
 	})
 
 	useEffect(() => {
-		reset(getFormDefaultValues(actionType, selectedNote))
-	}, [actionType, selectedNote, reset])
-
-	const handleSubmit = async () => {
-		const result = await trigger()
-		if (!result) return
-
-		const noteData = getValues()
-		if (actionType === 'edit') {
-			handleEditSelectedNote(selectedNote!.id, noteData)
-		} else {
-			handleAddNote(noteData)
+		if (actionType === 'edit' && selectedNote) {
+			reset({
+				title: selectedNote.title,
+				tags: selectedNote.tags || '',
+				content: selectedNote.content || '',
+			})
+		} else if (actionType === 'add') {
+			reset({
+				title: '',
+				tags: '',
+				content: '',
+			})
 		}
-	}
+	}, [selectedNote, actionType, reset])
 
 	return (
 		<form
-			onSubmit={(e) => {
-				e.preventDefault()
-				handleSubmit()
+			action={async () => {
+				const result = await trigger()
+				if (!result) return
+
+				const noteData = getValues()
+
+				if (actionType === 'add') {
+					handleAddNote(noteData)
+				} else if (actionType === 'edit') {
+					handleEditSelectedNote(selectedNote!.id, noteData)
+				}
 			}}
 			className="flex flex-col min-h-full"
 		>
