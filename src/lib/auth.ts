@@ -43,7 +43,26 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 	],
 	callbacks: {
 		authorized: ({ auth, request }) => {
-			return true
+			const isUserLoggedIn = !!auth?.user
+			const isTryingToAccessApp = request.nextUrl.pathname.includes('/app')
+
+			// Check all the conditions to redirect the user
+			if (!isUserLoggedIn && isTryingToAccessApp) {
+				return false
+			}
+
+			if (isUserLoggedIn && isTryingToAccessApp) {
+				return true
+			}
+
+			if (isUserLoggedIn && !isTryingToAccessApp) {
+				return Response.redirect(new URL('/app/dashboard', request.nextUrl))
+			}
+			if (!isUserLoggedIn && !isTryingToAccessApp) {
+				return true
+			}
+
+			return false
 		},
 	},
 })
