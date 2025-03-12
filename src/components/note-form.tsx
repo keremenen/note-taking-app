@@ -26,11 +26,15 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 		formState: { errors },
 	} = useForm<TNoteForm>({
 		resolver: zodResolver(noteFormSchema),
-		defaultValues: {
-			title: actionType === 'edit' ? selectedNote?.title : '',
-		},
 	})
 
+	// Get the current form values if the action is 'add'
+	let currentFormValues
+	if (actionType === 'add') {
+		currentFormValues = getValues()
+	}
+
+	// Reset the form when the selected note changes
 	useEffect(() => {
 		if (actionType === 'edit' && selectedNote) {
 			reset({
@@ -45,7 +49,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				content: '',
 			})
 		}
-	}, [selectedNote, actionType, reset])
+	}, [selectedNote, actionType, reset, getValues])
 
 	return (
 		<form
@@ -70,6 +74,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				className="!text-2xl font-bold w-full bg-inherit outline-none rounded-sm border-none mb-4 px-0 focus:!ring-0 !ring-offset-0"
 				placeholder="Enter a title..."
 				autoFocus
+				defaultValue={currentFormValues && currentFormValues.title}
 			/>
 			{errors.title && (
 				<span className="text-red-500">{errors.title.message}</span>
@@ -85,6 +90,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 							required: true,
 						})}
 						placeholder="Add tags separated by commas (e.g. Work, Planning)"
+						defaultValue={currentFormValues && currentFormValues.tags}
 					/>
 				</NoteDetailsRowWrapper>
 				{errors.tags && (
@@ -109,6 +115,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				placeholder="Start typing your note here…"
 				className="flex-1 mb-4"
 				spellCheck={false}
+				defaultValue={currentFormValues && currentFormValues.content}
 			/>
 
 			{/* Note controls */}

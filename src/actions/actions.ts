@@ -23,7 +23,11 @@ export async function editNote(noteId: unknown, newNoteData: unknown) {
 			where: {
 				id: validatedNoteId.data,
 			},
-			data: validatedNote.data,
+			data: {
+				...validatedNote.data,
+				// if tags string end with come	, remove it
+				tags: validatedNote.data.tags.replace(/,\s*$/, ''),
+			},
 		})
 	} catch (error) {
 		return { message: 'Failed to edit note', error }
@@ -46,7 +50,10 @@ export async function addNote(noteData: unknown) {
 		await prisma.note.create({
 			data: {
 				status: 'active',
+
+				// if tags string end with come	, remove it
 				...validatedData.data,
+				tags: validatedData.data.tags.replace(/,\s*$/, ''),
 			},
 		})
 	} catch (error) {
