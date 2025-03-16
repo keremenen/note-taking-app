@@ -12,7 +12,7 @@ type TUserContext = {
 export const UserContext = createContext<TUserContext | null>(null)
 
 type UserContextProviderProps = {
-	user: User
+	user: User | null
 	children: React.ReactNode
 }
 
@@ -20,7 +20,9 @@ export default function UserCotnextProvider({
 	user,
 	children,
 }: UserContextProviderProps) {
-	const [preferedTheme, setPreferedTheme] = useState(user.preferedColorScheme)
+	const [preferedTheme, setPreferedTheme] = useState(
+		user?.preferedColorScheme || 'system'
+	)
 
 	const handleSetPreferedTheme = async (theme: string) => {
 		setPreferedTheme(theme)
