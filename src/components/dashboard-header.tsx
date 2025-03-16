@@ -12,7 +12,7 @@ export default function DashboardHeader({ title }: { title: string }) {
 	const tag = searchParams.get('tag')
 
 	return (
-		<header className="px-8 py-4 border-b border-[#E0E4EA] flex items-center h-20">
+		<header className="px-8 py-4 border-b border-neutral-200 flex items-center h-20  text-neutral-950 bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
 			<HeaderHeading>
 				{searchQuery ? (
 					<>
@@ -36,7 +36,7 @@ export default function DashboardHeader({ title }: { title: string }) {
 					className="w-80"
 				/>
 				<Link href="/app/dashboard/settings">
-					<Settings className="ml-auto" />
+					<Settings className="ml-auto dark:text-neutral-400" />
 				</Link>
 			</div>
 		</header>

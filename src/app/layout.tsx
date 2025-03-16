@@ -31,7 +31,7 @@ export default async function RootLayout({
 		<html lang="en">
 			<body
 				className={cn(
-					`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen text-[#0E121B] bg-white`,
+					`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen text-[#0E121B] dark:bg-neutral-950 bg-neutral-0`,
 					{
 						dark: theme === 'dark',
 					}
