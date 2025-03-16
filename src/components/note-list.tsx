@@ -47,8 +47,8 @@ export default function NotesList({ type }: NoteListProps) {
 	}
 
 	return (
-		<section className="basis-72  border-[#E0E4EA] border-r px-5  bg-white overflow-auto  ">
-			<section className="mb-4 sticky top-0 bg-white pt-7">
+		<section className="basis-72  border-[#E0E4EA] border-r px-5 dark:bg-neutral-950 dark:border-neutral-800 bg-white overflow-auto dark:text-neural-0">
+			<section className="mb-4 sticky top-0  pt-7 ">
 				<Button className="w-full mb-4 " onClick={handleActiveAddNoteMode}>
 					Create new note
 				</Button>
