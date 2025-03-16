@@ -1,12 +1,7 @@
 'use server'
 
 import prisma from '@/lib/db'
-import {
-	authFormSchema,
-	noteFormSchema,
-	noteIdSchema,
-	themeSchema,
-} from '@/lib/validations'
+import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'

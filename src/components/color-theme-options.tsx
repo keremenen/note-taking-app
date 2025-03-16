@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { Label } from './ui/label'
-import { Button } from './ui/button'
 import { LaptopMinimalCheck, Moon, Sun } from 'lucide-react'
 import OptionButton from './option-button'
 import { useUserContext } from '@/lib/hooks'
