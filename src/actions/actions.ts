@@ -192,6 +192,7 @@ export async function signUp(prevState: unknown, formData: unknown) {
 		}
 		return { message: 'Failed to create user' }
 	}
+	await signIn('credentials', formData)
 }
 
 export async function logIn(prevState: unknown, formData: unknown) {
