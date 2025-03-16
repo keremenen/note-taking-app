@@ -12,7 +12,7 @@ export default function DashboardHeader({ title }: { title: string }) {
 	const tag = searchParams.get('tag')
 
 	return (
-		<header className="px-8 py-4 border-b border-neutral-200 flex items-center h-20  text-neutral-950 bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
+		<header className="px-8 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center h-20  text-neutral-950 bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
 			<HeaderHeading>
 				{searchQuery ? (
 					<>

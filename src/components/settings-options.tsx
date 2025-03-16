@@ -33,8 +33,9 @@ const settingsOptions: SettingsOption[] = [
 
 export default function SettingsOptions() {
 	const { handleChangeSelectedOption } = useSettingsContext()
+
 	return (
-		<section className="flex flex-col pl-8 pr-4 py-5 gap-y-2 w-full max-w-64 border-[#E0E4EA] border-r">
+		<section className="flex flex-col pl-8 pr-4 py-5 gap-y-2 w-full max-w-64 dark:bg-neutral-950 dark:border-neutral-800 border-r dark:text-neutral-0">
 			{settingsOptions.map((option, index) => (
 				<Button
 					key={index}
