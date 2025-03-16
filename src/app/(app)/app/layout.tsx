@@ -4,13 +4,24 @@ import NoteContextProvider from '@/contexts/note-context-provider'
 import SearchContextProvider from '@/contexts/search-context-provider'
 import SettingsContextProvider from '@/contexts/settings-context-provider'
 import prisma from '@/lib/db'
+import auth from '@/middleware'
 
 export default async function AppLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	const data = await prisma.note.findMany()
+	const session = await auth()
+
+	if (!session) {
+		return null
+	}
+
+	const data = await prisma.note.findMany({
+		where: {
+			userId: session.user?.id,
+		},
+	})
 
 	return (
 		<>

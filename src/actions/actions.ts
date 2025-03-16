@@ -5,8 +5,9 @@ import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
-import { signIn, signOut } from '@/lib/auth'
+import { auth, signIn, signOut } from '@/lib/auth'
 import { AuthError } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
@@ -38,6 +39,12 @@ export async function editNote(noteId: unknown, newNoteData: unknown) {
 }
 
 export async function addNote(noteData: unknown) {
+	// Check auth
+	const session = await auth()
+	if (!session) {
+		redirect('/login')
+	}
+
 	// Validate the data
 	const validatedData = noteFormSchema.safeParse(noteData)
 
@@ -51,9 +58,14 @@ export async function addNote(noteData: unknown) {
 			data: {
 				status: 'active',
 
-				// if tags string end with come	, remove it
 				...validatedData.data,
+				// if tags string end with come	, remove it
 				tags: validatedData.data.tags.replace(/,\s*$/, ''),
+				User: {
+					connect: {
+						id: session.user?.id,
+					},
+				},
 			},
 		})
 	} catch (error) {
