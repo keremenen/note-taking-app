@@ -2,7 +2,7 @@
 
 import { changePreferedTheme } from '@/actions/actions'
 import { User } from '@prisma/client'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 type TUserContext = {
 	preferedTheme: string
@@ -31,6 +31,10 @@ export default function UserCotnextProvider({
 			console.log(error.message)
 		}
 	}
+
+	useEffect(() => {
+		// set prefered theme in cookie
+	}, [preferedTheme])
 	return (
 		<UserContext.Provider value={{ preferedTheme, handleSetPreferedTheme }}>
 			{children}

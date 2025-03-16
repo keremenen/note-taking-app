@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs'
 import { auth, signIn, signOut } from '@/lib/auth'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
@@ -244,4 +245,6 @@ export async function changePreferedTheme(theme: string) {
 	} catch (error) {
 		return { message: 'Failed to change theme', error }
 	}
+	const cookieStore = await cookies()
+	cookieStore.set('theme', theme)
 }
