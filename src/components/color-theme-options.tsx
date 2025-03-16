@@ -3,31 +3,31 @@ import { Label } from './ui/label'
 import { Button } from './ui/button'
 import { LaptopMinimalCheck, Moon, Sun } from 'lucide-react'
 import OptionButton from './option-button'
+import { useUserContext } from '@/lib/hooks'
 
 const themeSettings = [
 	{
 		title: 'Light Mode',
+		value: 'light',
 		description: 'Pick a clean and classic light theme',
 		icon: <Sun />,
 	},
 	{
 		title: 'Dark Mode',
+		value: 'dark',
 		description: 'Select a sleek and modern dark theme',
 		icon: <Moon />,
 	},
 	{
 		title: 'System',
+		value: 'system',
 		description: 'Adapts to your device theme',
 		icon: <LaptopMinimalCheck />,
 	},
 ]
 
 export default function ColorThemeOptions() {
-	const [selectedValue, setSelectedValue] = useState('option-0')
-
-	const handleOptionClick = (option: string) => {
-		setSelectedValue(option)
-	}
+	const { preferedTheme, handleSetPreferedTheme } = useUserContext()
 
 	return (
 		<section className="p-8 max-w-[528px] w-full">
@@ -42,20 +42,16 @@ export default function ColorThemeOptions() {
 						key={index}
 						icon={option.icon}
 						onClick={() => {
-							handleOptionClick(`option-${index}`)
+							handleSetPreferedTheme(option.value)
 						}}
-						selected={selectedValue === `option-${index}`}
+						selected={preferedTheme === option.value}
 					>
-						<Label htmlFor={`option-${index}`} className="text-sm font-medium">
+						<Label htmlFor={option.value} className="text-sm font-medium">
 							{option.title}
 						</Label>
 						<span className="text-xs font-normal">{option.description}</span>
 					</OptionButton>
 				))}
-
-				<Button size={'sm'} className="self-end font-normal">
-					Apply Changes
-				</Button>
 			</section>
 		</section>
 	)

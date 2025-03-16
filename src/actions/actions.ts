@@ -1,7 +1,12 @@
 'use server'
 
 import prisma from '@/lib/db'
-import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
+import {
+	authFormSchema,
+	noteFormSchema,
+	noteIdSchema,
+	themeSchema,
+} from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
@@ -182,6 +187,7 @@ export async function signUp(prevState: unknown, formData: unknown) {
 			data: {
 				email,
 				hashedPassword: await bcrypt.hash(password, 10),
+				preferedColorScheme: 'system',
 			},
 		})
 	} catch (error) {
@@ -221,5 +227,26 @@ export async function logIn(prevState: unknown, formData: unknown) {
 }
 
 export async function logOut() {
-	await signOut({ redirectTo: '/' })
+	await signOut({ redirectTo: '/login' })
+}
+
+export async function changePreferedTheme(theme: string) {
+	const session = await auth()
+	if (!session) {
+		redirect('/login')
+	}
+
+	// Change the theme
+	try {
+		await prisma.user.update({
+			where: {
+				id: session.user?.id,
+			},
+			data: {
+				preferedColorScheme: theme,
+			},
+		})
+	} catch (error) {
+		return { message: 'Failed to change theme', error }
+	}
 }

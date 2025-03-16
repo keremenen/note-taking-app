@@ -3,8 +3,10 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import NoteContextProvider from '@/contexts/note-context-provider'
 import SearchContextProvider from '@/contexts/search-context-provider'
 import SettingsContextProvider from '@/contexts/settings-context-provider'
+import UserCotnextProvider from '@/contexts/user-context-provider'
 import prisma from '@/lib/db'
 import auth from '@/middleware'
+import { SessionProvider } from 'next-auth/react'
 
 export default async function AppLayout({
 	children,
@@ -17,6 +19,12 @@ export default async function AppLayout({
 		return null
 	}
 
+	const user = await prisma.user.findUnique({
+		where: {
+			id: session.user?.id,
+		},
+	})
+
 	const data = await prisma.note.findMany({
 		where: {
 			userId: session.user?.id,
@@ -25,17 +33,21 @@ export default async function AppLayout({
 
 	return (
 		<>
-			<SearchContextProvider>
-				<NoteContextProvider data={data}>
-					<SettingsContextProvider>
-						<SidebarProvider>
-							<AppSidebar />
+			<SessionProvider>
+				<UserCotnextProvider user={user}>
+					<SearchContextProvider>
+						<NoteContextProvider data={data}>
+							<SettingsContextProvider>
+								<SidebarProvider>
+									<AppSidebar />
 
-							{children}
-						</SidebarProvider>
-					</SettingsContextProvider>
-				</NoteContextProvider>
-			</SearchContextProvider>
+									{children}
+								</SidebarProvider>
+							</SettingsContextProvider>
+						</NoteContextProvider>
+					</SearchContextProvider>
+				</UserCotnextProvider>
+			</SessionProvider>
 		</>
 	)
 }
