@@ -1,7 +1,12 @@
 'use server'
 
 import prisma from '@/lib/db'
-import { authFormSchema, noteFormSchema, noteIdSchema } from '@/lib/validations'
+import {
+	authFormSchema,
+	changePasswordFormSchema,
+	noteFormSchema,
+	noteIdSchema,
+} from '@/lib/validations'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
@@ -9,6 +14,7 @@ import { auth, signIn, signOut } from '@/lib/auth'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { error } from 'console'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
@@ -247,4 +253,59 @@ export async function changePreferedTheme(theme: string) {
 	}
 	const cookieStore = await cookies()
 	cookieStore.set('theme', theme)
+}
+
+export async function changePassword(formData: unknown) {
+	const session = await auth()
+
+	if (!session) {
+		redirect('/login')
+	}
+
+	const validatedFormData = changePasswordFormSchema.safeParse(formData)
+	if (!validatedFormData.success) {
+		return { errorMessage: 'Invalid data' }
+	}
+
+	const user = await prisma.user.findUnique({
+		where: {
+			id: session.user?.id,
+		},
+		select: {
+			hashedPassword: true,
+		},
+	})
+
+	if (!user) {
+		return { errorMessage: 'User not found' }
+	}
+
+	const { hashedPassword: databaseHashedPassword } = user
+
+	const isPasswordMatch = await bcrypt.compare(
+		validatedFormData.data.currentPassword,
+		databaseHashedPassword
+	)
+
+	if (!isPasswordMatch) {
+		return { errorMessage: 'Invalid current password' }
+	}
+
+	const newHashedPassword = await bcrypt.hash(
+		validatedFormData.data.newPassword,
+		10
+	)
+
+	await prisma.user.update({
+		where: {
+			id: session.user?.id,
+		},
+		data: {
+			hashedPassword: newHashedPassword,
+		},
+	})
+
+	return {
+		successMessage: 'Password changed successfully',
+	}
 }

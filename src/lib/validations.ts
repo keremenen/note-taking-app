@@ -27,3 +27,16 @@ export const authFormSchema = z.object({
 })
 
 export type TAuthForm = z.infer<typeof authFormSchema>
+
+export const changePasswordFormSchema = z
+	.object({
+		currentPassword: z.string(),
+		newPassword: z.string().min(8),
+		confirmNewPassword: z.string(),
+	})
+	.refine((data) => data.newPassword === data.confirmNewPassword, {
+		message: 'Passwords do not match',
+		path: ['confirmNewPassword'], // This is the path to the field that will have the error
+	})
+
+export type TChangePasswordForm = z.infer<typeof changePasswordFormSchema>

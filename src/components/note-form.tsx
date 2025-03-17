@@ -73,6 +73,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				{...register('title', { required: true })}
 				className="!text-2xl font-bold w-full bg-inherit outline-none rounded-sm border-none mb-4 px-0 focus:!ring-0 !ring-offset-0"
 				placeholder="Enter a title..."
+				spellCheck={false}
 				autoFocus
 				defaultValue={currentFormValues && currentFormValues.title}
 			/>
