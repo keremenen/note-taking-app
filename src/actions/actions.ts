@@ -14,7 +14,6 @@ import { auth, signIn, signOut } from '@/lib/auth'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
-import { error } from 'console'
 
 export async function editNote(noteId: unknown, newNoteData: unknown) {
 	// Validate the data
