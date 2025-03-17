@@ -8,20 +8,18 @@ import React from 'react'
 
 export default function LogInPage() {
 	return (
-		<main className="flex justify-center items-center min-h-screen">
-			<AuthFormWrapper
-				title="Welcome to Note"
-				subtitle="Please log in to continue"
-			>
-				<AuthForm type="login" />
+		<AuthFormWrapper
+			title="Welcome to Note"
+			subtitle="Please log in to continue"
+		>
+			<AuthForm type="login" />
 
-				<Separator className="mb-4" />
+			<Separator className="mb-4" />
 
-				<div className="flex gap-x-2">
-					<p>No account yet?</p>
-					<Link href="/signup"> Sign up</Link>
-				</div>
-			</AuthFormWrapper>
-		</main>
+			<div className="flex gap-x-2">
+				<p>No account yet?</p>
+				<Link href="/signup"> Sign up</Link>
+			</div>
+		</AuthFormWrapper>
 	)
 }
