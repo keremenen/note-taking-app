@@ -125,7 +125,7 @@ function EmptyListInfo({ type }: { type?: 'archive' | 'active' }) {
 		: null
 
 	return message ? (
-		<section className="bg-[#F3F5F8] border-[#E0E4EA] border-2 rounded-md px-2 py-1 mt-4 text-sm tracking-tight">
+		<section className="bg-[#F3F5F8] border-[#E0E4EA] border-2 rounded-md px-2 py-1 mt-4 text-sm tracking-tight dark:bg-neutral-800 dark:text-neutral-0 dark:border-neutral-900">
 			<p>{message}</p>
 		</section>
 	) : null
@@ -133,7 +133,7 @@ function EmptyListInfo({ type }: { type?: 'archive' | 'active' }) {
 
 function NoteListAdditionalInfo({ children }: { children: string | string[] }) {
 	return (
-		<section className="text-sm text-[#6B7280]">
+		<section className="text-sm text-[#6B7280] ">
 			<p>{children}</p>
 		</section>
 	)

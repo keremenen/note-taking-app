@@ -42,7 +42,7 @@ export function AppSidebar() {
 			<SidebarHeader className="p-4 bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
 				<Logo />
 			</SidebarHeader>
-			<SidebarContent className="bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
+			<SidebarContent className="bg-neutral-0 dark:bg-neutral-950 ">
 				<SidebarGroup>
 					<SidebarMenu>
 						{routes.map((route) => (
