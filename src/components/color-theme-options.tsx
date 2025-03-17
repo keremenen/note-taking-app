@@ -1,5 +1,5 @@
 import { Label } from './ui/label'
-import { LaptopMinimalCheck, Moon, Sun } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import OptionButton from './option-button'
 import { useUserContext } from '@/lib/hooks'
 
@@ -16,12 +16,12 @@ const themeSettings = [
 		description: 'Select a sleek and modern dark theme',
 		icon: <Moon />,
 	},
-	{
-		title: 'System',
-		value: 'system',
-		description: 'Adapts to your device theme',
-		icon: <LaptopMinimalCheck />,
-	},
+	// {
+	// 	title: 'System',
+	// 	value: 'system',
+	// 	description: 'Adapts to your device theme',
+	// 	icon: <LaptopMinimalCheck />,
+	// },
 ]
 
 export default function ColorThemeOptions() {
