@@ -1,15 +1,17 @@
+import AppMainWrapper from '@/components/app-main-wrapper'
+import AppSectionWrapper from '@/components/app-section-wrapper'
 import DashboardHeader from '@/components/dashboard-header'
 import SettingsContent from '@/components/settings-content'
 import SettingsOptions from '@/components/settings-options'
 
 export default async function SettingsPage() {
 	return (
-		<main className="min-h-screen flex flex-col max-h-screen w-full">
+		<AppMainWrapper>
 			<DashboardHeader title="Settings" />
-			<section className="flex flex-row flex-1 overflow-auto dark:bg-neutral-950 dark:text-neutral-0">
+			<AppSectionWrapper>
 				<SettingsOptions />
 				<SettingsContent />
-			</section>
-		</main>
+			</AppSectionWrapper>
+		</AppMainWrapper>
 	)
 }

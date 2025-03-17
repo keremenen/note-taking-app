@@ -1,3 +1,5 @@
+import AppMainWrapper from '@/components/app-main-wrapper'
+import AppSectionWrapper from '@/components/app-section-wrapper'
 import DashboardHeader from '@/components/dashboard-header'
 import NoteDetails from '@/components/note-details'
 import NotesList from '@/components/note-list'
@@ -5,13 +7,13 @@ import NoteOptions from '@/components/note-options'
 
 export default async function DashboardPage() {
 	return (
-		<main className="min-h-screen flex flex-col max-h-screen w-full">
+		<AppMainWrapper>
 			<DashboardHeader title="All Notes" />
-			<section className="flex flex-row flex-1 overflow-auto dark:bg-neutral-950 dark:text-neutral-0">
+			<AppSectionWrapper>
 				<NotesList type="active" />
 				<NoteDetails />
 				<NoteOptions />
-			</section>
-		</main>
+			</AppSectionWrapper>
+		</AppMainWrapper>
 	)
 }
