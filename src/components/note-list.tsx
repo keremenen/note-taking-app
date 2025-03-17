@@ -83,7 +83,7 @@ function SingleNoteSummary({ note }: { note: Note }) {
 
 	return (
 		<li
-			className=" hover:bg-[#F3F5F8] rounded-md hover:cursor-pointer transition duration-300"
+			className="hover:bg-[#F3F5F8] dark:hover:bg-neutral-800 rounded-md hover:cursor-pointer transition duration-300 dark:text-neutral-0"
 			key={note.id}
 		>
 			<button
@@ -95,14 +95,14 @@ function SingleNoteSummary({ note }: { note: Note }) {
 					{note.tags.split(',').map((tag) => (
 						<span
 							key={Math.random()}
-							className="bg-[#E0E4EA] rounded-sm text-[12px] px-[6px] py-[2px]"
+							className="bg-neutral200 text-neutral-950 dark:bg- rounded-sm text-[12px] px-[6px] py-[2px] dark:bg-neutral-700 dark:text-neutral-0"
 						>
 							{tag.trim()}
 						</span>
 					))}
 				</div>
 
-				<p className="text-[12px]">
+				<p className="text-[12px] dark:text-neutral-200">
 					{new Date(note.updatedAt).toLocaleDateString('en-GB', {
 						day: 'numeric',
 						month: 'short',

@@ -39,15 +39,19 @@ export function AppSidebar() {
 
 	return (
 		<Sidebar>
-			<SidebarHeader className="p-4">
+			<SidebarHeader className="p-4 bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
 				<Logo />
 			</SidebarHeader>
-			<SidebarContent>
+			<SidebarContent className="bg-neutral-0 dark:bg-neutral-950 dark:text-neutral-0">
 				<SidebarGroup>
 					<SidebarMenu>
 						{routes.map((route) => (
 							<SidebarMenuItem key={route.title}>
-								<SidebarMenuButton asChild isActive={pathname === route.url}>
+								<SidebarMenuButton
+									asChild
+									isActive={pathname === route.url}
+									className="dark:hover:bg-neutral-800"
+								>
 									<Link href={route.url}>
 										{route.icon}
 										<span>{route.title}</span>
@@ -64,7 +68,10 @@ export function AppSidebar() {
 						<SidebarMenu>
 							{tags.map((item, i) => (
 								<SidebarMenuItem key={i}>
-									<SidebarMenuButton asChild>
+									<SidebarMenuButton
+										asChild
+										className="dark:hover:bg-neutral-800"
+									>
 										<Link href={`/app/dashboard?tag=${item}`}>
 											<Tag />
 											<span>{item}</span>

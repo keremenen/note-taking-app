@@ -18,7 +18,7 @@ const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
 				aria-pressed={selected}
 				{...props}
 			>
-				<div className="size-10 rounded-md border-[1px] flex justify-center items-center border-[#E0E4EA] bg-white ">
+				<div className="size-10 rounded-md border-[1px] flex justify-center items-center border-[#E0E4EA] bg-white dark:bg-neutral-950 dark:border-neutral-800">
 					{icon}
 				</div>
 
@@ -28,7 +28,7 @@ const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
 
 				<input
 					type="radio"
-					className="ml-auto"
+					className="ml-auto dark:bg-red-500 size-4 text-red-500"
 					checked={selected}
 					readOnly
 					aria-hidden="true"

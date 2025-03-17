@@ -85,7 +85,7 @@ export default function NoteForm({ actionType }: NoteFormProps) {
 				<NoteDetailsRowWrapper icon={<Tag size={16} />} label="Tags">
 					<Input
 						id="tags"
-						className="bg-inherit  rounded-sm border-none h-full p-1 min-w-full px-1"
+						className="bg-inherit  rounded-sm border-none h-full p-1 min-w-full px-1 "
 						{...register('tags', {
 							required: true,
 						})}
@@ -140,7 +140,7 @@ function NoteDetailsRowWrapper({
 }: NoteDetailsRowWrapperProps) {
 	return (
 		<div className="flex h-8 mb-1 items-center">
-			<span className="flex items-center max-w-28 gap-x-2 text-[#2B303B] w-full">
+			<span className="flex items-center max-w-28 gap-x-2 text-[#2B303B] w-full dark:bg-neutral-950 dark:text-neutral-0">
 				{icon}
 				{label}
 			</span>
