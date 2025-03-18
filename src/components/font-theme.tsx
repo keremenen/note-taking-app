@@ -3,20 +3,24 @@ import OptionButton from './option-button'
 import { Label } from '@radix-ui/react-label'
 import { Button } from './ui/button'
 import { useState } from 'react'
+import { setCookie } from '@/actions/actions'
 
 const fontSettings = [
 	{
 		title: 'Sans-serif',
+		value: 'sans-serif',
 		description: 'Clean and modern, easy to read.',
 		icon: <CaseSensitive />,
 	},
 	{
 		title: 'Serif',
+		value: 'serif',
 		description: 'Classic and elegant for a timeless feel.',
 		icon: <CaseSensitive />,
 	},
 	{
 		title: 'Monospace',
+		value: 'monospace',
 		description: 'Code-like, great for a technical vibe.',
 		icon: <CaseSensitive />,
 	},
@@ -25,8 +29,9 @@ const fontSettings = [
 export default function FontThemeOptions() {
 	const [selectedValue, setSelectedValue] = useState('option-0')
 
-	const handleOptionClick = (option: string) => {
+	const handleOptionClick = async (option: string) => {
 		setSelectedValue(option)
+		await setCookie('font', option)
 	}
 
 	return (
@@ -40,7 +45,7 @@ export default function FontThemeOptions() {
 						key={index}
 						icon={option.icon}
 						onClick={() => {
-							handleOptionClick(`option-${index}`)
+							handleOptionClick(option.value)
 						}}
 						selected={selectedValue === `option-${index}`}
 					>

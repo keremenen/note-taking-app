@@ -308,3 +308,8 @@ export async function changePassword(formData: unknown) {
 		successMessage: 'Password changed successfully',
 	}
 }
+
+export async function setCookie(key: string, value: string) {
+	const cookieStore = await cookies()
+	cookieStore.set(key, value)
+}

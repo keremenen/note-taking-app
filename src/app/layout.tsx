@@ -1,16 +1,21 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Noto_Serif, Roboto, Roboto_Mono } from 'next/font/google'
 import '../styles/globals.css'
 import { cn } from '@/lib/utils'
 import { cookies } from 'next/headers'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
+const roboto = Roboto({
+	weight: ['400', '500', '700', '900'],
 	subsets: ['latin'],
 })
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const notoSerif = Noto_Serif({
+	weight: ['400', '500', '600', '700'],
+	subsets: ['latin'],
+})
+
+const robotoMono = Roboto_Mono({
+	weight: ['400', '500', '600', '700'],
 	subsets: ['latin'],
 })
 
@@ -25,15 +30,20 @@ export default async function RootLayout({
 	children: React.ReactNode
 }>) {
 	const cookieStore = await cookies()
+
 	const theme = cookieStore.get('theme')?.value || 'system'
+	const selectedFont = cookieStore.get('font')?.value || 'roboto'
 
 	return (
 		<html lang="en">
 			<body
 				className={cn(
-					`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen text-[#0E121B] dark:bg-neutral-950 bg-neutral-0`,
+					`${roboto.className}  antialiased min-h-screen text-[#0E121B] dark:bg-neutral-950 bg-neutral-0`,
 					{
 						dark: theme === 'dark',
+						[roboto.className]: selectedFont === 'sans-serif',
+						[notoSerif.className]: selectedFont === 'serif',
+						[robotoMono.className]: selectedFont === 'monospace',
 					}
 				)}
 			>
