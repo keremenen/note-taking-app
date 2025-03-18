@@ -2,7 +2,7 @@ import { CaseSensitive } from 'lucide-react'
 import OptionButton from './option-button'
 import { Label } from '@radix-ui/react-label'
 import { Button } from './ui/button'
-import { useState } from 'react'
+
 import { setCookie } from '@/actions/actions'
 
 const fontSettings = [
@@ -26,11 +26,8 @@ const fontSettings = [
 	},
 ]
 
-export default function FontThemeOptions() {
-	const [selectedValue, setSelectedValue] = useState('option-0')
-
+export default function FontThemeOptions({ font }: { font: string }) {
 	const handleOptionClick = async (option: string) => {
-		setSelectedValue(option)
 		await setCookie('font', option)
 	}
 
@@ -47,7 +44,7 @@ export default function FontThemeOptions() {
 						onClick={() => {
 							handleOptionClick(option.value)
 						}}
-						selected={selectedValue === `option-${index}`}
+						selected={font === option.value}
 					>
 						<Label htmlFor={`option-${index}`} className="text-sm font-medium">
 							{option.title}

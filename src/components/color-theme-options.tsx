@@ -1,7 +1,7 @@
 import { Label } from './ui/label'
 import { Moon, Sun } from 'lucide-react'
 import OptionButton from './option-button'
-import { useUserContext } from '@/lib/hooks'
+import { setCookie } from '@/actions/actions'
 
 const themeSettings = [
 	{
@@ -16,16 +16,12 @@ const themeSettings = [
 		description: 'Select a sleek and modern dark theme',
 		icon: <Moon />,
 	},
-	// {
-	// 	title: 'System',
-	// 	value: 'system',
-	// 	description: 'Adapts to your device theme',
-	// 	icon: <LaptopMinimalCheck />,
-	// },
 ]
 
-export default function ColorThemeOptions() {
-	const { preferedTheme, handleSetPreferedTheme } = useUserContext()
+export default function ColorThemeOptions({ theme }: { theme: string }) {
+	const handleOptionClick = async (option: string) => {
+		await setCookie('theme', option)
+	}
 
 	return (
 		<section className="p-8 max-w-[528px] w-full">
@@ -40,9 +36,9 @@ export default function ColorThemeOptions() {
 						key={index}
 						icon={option.icon}
 						onClick={() => {
-							handleSetPreferedTheme(option.value)
+							handleOptionClick(option.value)
 						}}
-						selected={preferedTheme === option.value}
+						selected={theme === option.value}
 					>
 						<Label htmlFor={option.value} className="text-sm font-medium">
 							{option.title}

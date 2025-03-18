@@ -1,7 +1,6 @@
 import { NoteContext } from '@/contexts/note-context-provider'
 import { SearchContext } from '@/contexts/search-context-provider'
 import { SettingsContext } from '@/contexts/settings-context-provider'
-import { UserContext } from '@/contexts/user-context-provider'
 import { useContext } from 'react'
 
 export function useNoteContext() {
@@ -33,16 +32,6 @@ export function useSearchContext() {
 		throw new Error(
 			'useSearchContext must be used within a SearchContextProvider'
 		)
-	}
-
-	return context
-}
-
-export function useUserContext() {
-	const context = useContext(UserContext)
-
-	if (!context) {
-		throw new Error('useUserContext must be used within a UserContextProvider')
 	}
 
 	return context
